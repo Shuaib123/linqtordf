@@ -5,9 +5,5 @@ This is a very new project, so please bear with me as I add new content.
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
-
+  * Choosing SparqlTestServers
 
