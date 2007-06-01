@@ -1,9 +1,8 @@
 #summary The root page of the wiki
 = Introduction =
-This is a very new project, so please bear with me as I add new content.
+This is a very new project, so please bear with us as we add new content.
 
 
 = Details =
 
   * Choosing SparqlTestServers
-
