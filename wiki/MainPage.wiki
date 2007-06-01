@@ -6,3 +6,4 @@ This is a very new project, so please bear with us as we add new content.
 = Details =
 
   * Choosing SparqlTestServers
+  * Freeform [http://linqtordf.googlecode.com/svn/trunk/Ideas.htm ideas] (not yet in the issue log)
