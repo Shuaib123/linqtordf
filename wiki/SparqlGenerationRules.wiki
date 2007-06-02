@@ -18,22 +18,20 @@ var q = from t in qry
 }}}
     * Should produce SPARQL similar to the following:
 {{{
-@prefix a: <http://someUri> .
+@prefix a: <http://aabs.purl.org/ontologies/2007/04/music#> .
 @prefix xsdt: <http://xsdtUri> .
 
-SELECT ?Title, ?FileLocation 
+SELECT _:Title _:ArtistName _:AlbumName _:Year _:GenreName _:Comment _:FileLocation _:Rating
 WHERE {
-?Track <http://aabs.purl.org/ontologies/2007/04/music#title> ?Title .
-?Track <http://aabs.purl.org/ontologies/2007/04/music#artistName> ?ArtistName .
-?Track <http://aabs.purl.org/ontologies/2007/04/music#albumName> ?AlbumName .
-?Track <http://aabs.purl.org/ontologies/2007/04/music#year> ?Year .
-?Track <http://aabs.purl.org/ontologies/2007/04/music#genreName> ?GenreName .
-?Track <http://aabs.purl.org/ontologies/2007/04/music#comment> ?Comment .
-?Track <http://aabs.purl.org/ontologies/2007/04/music#fileLocation> ?FileLocation .
-?Track <http://aabs.purl.org/ontologies/2007/04/music#rating> ?Rating .
- FILTER {
-    ((t.Year)=(2006^^xsdt:int))&&((t.GenreName)=(”History 5 | Fall 2006 | UC Berkeley”^^xsdt:string))
-  }
+  _:Track rdfs:type a:Track .
+  _:Track a:title ?Title .
+  _:Track a:artistName> ?ArtistName .
+  _:Track a:albumName ?AlbumName .
+  _:Track a:year ?Year .
+  _:Track a:genreName ?GenreName .
+  _:Track a:comment ?Comment .
+  _:Track a:fileLocation ?FileLocation .
+  _:Track a:rating ?Rating .
 }
 
 }}}
