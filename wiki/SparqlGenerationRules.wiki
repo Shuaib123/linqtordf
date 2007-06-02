@@ -24,7 +24,7 @@ WHERE {
 
 }
 }}}
-  * Select with simple clause
+  * Select with simple where containing EqExpression
 {{{
 IRdfQuery<Track> qry = new RDF(ts).ForType<Track>(); 
 var q = from t in qry
@@ -41,7 +41,7 @@ WHERE {
 
 }
 }}}
-  * Select 
+  * Select with Where containing AndAlsoExpression
 {{{
 IRdfQuery<Track> qry = new RDF(ts).ForType<Track>(); 
 var q = from t in qry
@@ -59,7 +59,7 @@ WHERE {
 
 }
 }}}
-  * Select 
+  * Select with Where containing simple OrElseExpression
 {{{
 IRdfQuery<Track> qry = new RDF(ts).ForType<Track>(); 
 var q = from t in qry
@@ -77,7 +77,7 @@ WHERE {
 
 }
 }}}
-  * Select 
+  * Select with Where containing AndAlsoExpression clauses combined by OrElseExpression
 {{{
 IRdfQuery<Track> qry = new RDF(ts).ForType<Track>(); 
 var q = from t in qry
@@ -85,6 +85,38 @@ var q = from t in qry
 	t.GenreName == "History 5 | Fall 2006 | UC Berkeley") ||
 	(t.ArtistName == "Rory Blythe" && t.Year == 2007)
 	select new t;
+}}}
+    * Should produce SPARQL similar to the following:
+{{{
+@prefix a: <http://someUri> .
+@prefix xsdt: <http://xsdtUri> .
+
+SELECT ...
+WHERE {
+
+}
+}}}
+  * Simple select with a projection
+{{{
+IRdfQuery<Track> qry = new RDF(ts).ForType<Track>(); 
+var q = from t in qry
+	select new {t.Title, t.FileLocation};
+}}}
+    * Should produce SPARQL similar to the following:
+{{{
+@prefix a: <http://someUri> .
+@prefix xsdt: <http://xsdtUri> .
+
+SELECT ...
+WHERE {
+
+}
+}}}
+  * Simple select with a projection not using same names as source properties
+{{{
+IRdfQuery<Track> qry = new RDF(ts).ForType<Track>(); 
+var q = from t in qry
+	select new {MyTitle = t.Title, MyFileLocation = t.FileLocation};
 }}}
     * Should produce SPARQL similar to the following:
 {{{
