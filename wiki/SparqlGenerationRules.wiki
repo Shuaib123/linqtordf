@@ -47,7 +47,16 @@ The conventions above are sufficient to represent, tersely, the structure of sim
 ==Basic Principles==
 ===Relational Operators===
   * X == Y
+  `X==Y` and `string.op_Equality[X,Y]` should be rendered the same:
     * EQ[X,Y]
+{{{
+SELECT ?name ?age WHERE {
+?X a:Name ?name .
+?X a:Age ?age .
+FILTER {?name = "Y"^^xsdt:string}
+}
+  }}}
+
 	* string.op_Equality[X, [Y]]
 {{{
 SELECT ?name ?age WHERE {
