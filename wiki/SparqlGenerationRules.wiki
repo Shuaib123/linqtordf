@@ -3,6 +3,8 @@
 
 This covers the syntactic process of representing the same query in SPARQL as is represented in a LINQ query, but also rules for generating identifiers, URIs, FILTERs, UNIONs and other aspects of well-formed RDF.
 
+The example syntax for this page is based upon the [TrackClass Track] class
+
 
 ==LINQ Query Examples==
 
