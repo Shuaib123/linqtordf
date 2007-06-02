@@ -45,6 +45,10 @@ The conventions above are sufficient to represent, tersely, the structure of sim
   * New Expression
   * Member Init Expression
 ==Basic Principles==
+The following section shows how basic expression tree fragments should be turned into SPARQL. In most cases the operator gets expanded into the FILTER section of the query.
+
+Consult The SPARQL operator mappings [http://www.w3.org/TR/rdf-sparql-query/#OperatorMapping table] for a definition of how the operators in SPARQL get handled at the far end.
+
 ===Relational Operators===
   * X == Y
   `X==Y` and `string.op_Equality[X,Y]` should be rendered the same:
