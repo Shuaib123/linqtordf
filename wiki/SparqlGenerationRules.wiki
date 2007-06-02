@@ -48,7 +48,7 @@ The conventions above are sufficient to represent, tersely, the structure of sim
 ===Relational Operators===
   * X == Y
   `X==Y` and `string.op_Equality[X,Y]` should be rendered the same:
-    * EQ[X,Y]
+    * `EQ[X,Y]`
 {{{
 SELECT ?name ?age WHERE {
 ?X a:Name ?name .
@@ -57,7 +57,7 @@ FILTER {?name = "Y"^^xsdt:string}
 }
 }}}
 
-	* string.op_Equality[X, [Y]]
+	* `string.op_Equality[X, [Y]]`
 {{{
 SELECT ?name ?age WHERE {
 ?X a:Name ?name .
@@ -65,7 +65,7 @@ SELECT ?name ?age WHERE {
 FILTER {?name = "Y"^^xsdt:string}
 }
 }}}
-    * NE[X,Y]
+  * `NE[X,Y]`
 {{{
 SELECT ?name ?age WHERE {
 ?X a:Name ?name .
@@ -73,7 +73,7 @@ SELECT ?name ?age WHERE {
 FILTER {?name != "Y"^^xsdt:string}
 }
 }}}
-    * GT[X.Age,[5]]
+  * `GT[X.Age,[5]]`
 {{{
 SELECT ?name ?age WHERE {
 ?X a:Name ?name .
@@ -81,7 +81,7 @@ SELECT ?name ?age WHERE {
 FILTER {?age > 5^^xsdt:int}
 }
 }}}
-    * LT[X.Age,[5]]
+  * `LT[X.Age,[5]]`
 {{{
 SELECT ?name ?age WHERE {
 ?X a:Name ?name .
@@ -89,7 +89,7 @@ SELECT ?name ?age WHERE {
 FILTER {?age < 5^^xsdt:int}
 }
 }}}
-    * GE[X.Age,[5]]
+  * `GE[X.Age,[5]]`
 {{{
 SELECT ?name ?age WHERE {
 ?X a:Name ?name .
@@ -97,12 +97,22 @@ SELECT ?name ?age WHERE {
 FILTER {?age >= 5^^xsdt:int}
 }
 }}}
-    * LE[X.Age,[5]]
+  * `LE[X.Age,[5]]`
 {{{
 SELECT ?name ?age WHERE {
 ?X a:Name ?name .
 ?X a:Age ?age .
 FILTER {?age <= 5^^xsdt:int}
+}
+}}}
+  * `Eq[X.IsEligible, Not[GE[X.Age, [21]]]`
+  produced by code like `from X.IsEligible == !(X.Age > 21)`
+{{{
+SELECT ?name ?age WHERE {
+?X a:Name ?name .
+?X a:Age ?age .
+?X a:isEligible ?isEligible .
+FILTER {?isEligible = !(?age >= 21^^xsdt:int)}
 }
 }}}
 
