@@ -14,12 +14,32 @@ IRdfQuery<Track> qry = new RDF(ts).ForType<Track>();
 var q = from t in qry
 	select new t;
 }}}
+    # Should produce SPARQL similar to the following:
+{{{
+@prefix a: <http://someUri> .
+@prefix xsdt: <http://xsdtUri> .
+
+SELECT ...
+WHERE {
+
+}
+}}}
   # Select with simple clause
 {{{
 IRdfQuery<Track> qry = new RDF(ts).ForType<Track>(); 
 var q = from t in qry
 	where t.Year == 2006
 	select new t;
+}}}
+    # Should produce SPARQL similar to the following:
+{{{
+@prefix a: <http://someUri> .
+@prefix xsdt: <http://xsdtUri> .
+
+SELECT ...
+WHERE {
+
+}
 }}}
   # Select 
 {{{
@@ -29,6 +49,16 @@ var q = from t in qry
 	t.GenreName == "History 5 | Fall 2006 | UC Berkeley" 
 	select new t;
 }}}
+    # Should produce SPARQL similar to the following:
+{{{
+@prefix a: <http://someUri> .
+@prefix xsdt: <http://xsdtUri> .
+
+SELECT ...
+WHERE {
+
+}
+}}}
   # Select 
 {{{
 IRdfQuery<Track> qry = new RDF(ts).ForType<Track>(); 
@@ -36,6 +66,16 @@ var q = from t in qry
 	where t.Year == 2006 ||
 	t.GenreName == "History 5 | Fall 2006 | UC Berkeley" 
 	select new t;
+}}}
+    # Should produce SPARQL similar to the following:
+{{{
+@prefix a: <http://someUri> .
+@prefix xsdt: <http://xsdtUri> .
+
+SELECT ...
+WHERE {
+
+}
 }}}
   # Select 
 {{{
@@ -45,4 +85,14 @@ var q = from t in qry
 	t.GenreName == "History 5 | Fall 2006 | UC Berkeley") ||
 	(t.ArtistName == "Rory Blythe" && t.Year == 2007)
 	select new t;
+}}}
+    # Should produce SPARQL similar to the following:
+{{{
+@prefix a: <http://someUri> .
+@prefix xsdt: <http://xsdtUri> .
+
+SELECT ...
+WHERE {
+
+}
 }}}
