@@ -19,10 +19,21 @@ var q = from t in qry
 @prefix a: <http://someUri> .
 @prefix xsdt: <http://xsdtUri> .
 
-SELECT ...
+SELECT ?Title, ?FileLocation 
 WHERE {
-
+?Track <http://aabs.purl.org/ontologies/2007/04/music#title> ?Title .
+?Track <http://aabs.purl.org/ontologies/2007/04/music#artistName> ?ArtistName .
+?Track <http://aabs.purl.org/ontologies/2007/04/music#albumName> ?AlbumName .
+?Track <http://aabs.purl.org/ontologies/2007/04/music#year> ?Year .
+?Track <http://aabs.purl.org/ontologies/2007/04/music#genreName> ?GenreName .
+?Track <http://aabs.purl.org/ontologies/2007/04/music#comment> ?Comment .
+?Track <http://aabs.purl.org/ontologies/2007/04/music#fileLocation> ?FileLocation .
+?Track <http://aabs.purl.org/ontologies/2007/04/music#rating> ?Rating .
+ FILTER {
+    ((t.Year)=(2006^^xsdt:int))&&((t.GenreName)=(”History 5 | Fall 2006 | UC Berkeley”^^xsdt:string))
+  }
 }
+
 }}}
   * Select with simple where containing EqExpression
 {{{
