@@ -55,7 +55,7 @@ SELECT ?name ?age WHERE {
 ?X a:Age ?age .
 FILTER {?name = "Y"^^xsdt:string}
 }
-  }}}
+}}}
 
 	* string.op_Equality[X, [Y]]
 {{{
@@ -64,7 +64,47 @@ SELECT ?name ?age WHERE {
 ?X a:Age ?age .
 FILTER {?name = "Y"^^xsdt:string}
 }
-  }}}
+}}}
+    * NE[X,Y]
+{{{
+SELECT ?name ?age WHERE {
+?X a:Name ?name .
+?X a:Age ?age .
+FILTER {?name != "Y"^^xsdt:string}
+}
+}}}
+    * GT[X.Age,[5]]
+{{{
+SELECT ?name ?age WHERE {
+?X a:Name ?name .
+?X a:Age ?age .
+FILTER {?age > 5^^xsdt:int}
+}
+}}}
+    * LT[X.Age,[5]]
+{{{
+SELECT ?name ?age WHERE {
+?X a:Name ?name .
+?X a:Age ?age .
+FILTER {?age < 5^^xsdt:int}
+}
+}}}
+    * GE[X.Age,[5]]
+{{{
+SELECT ?name ?age WHERE {
+?X a:Name ?name .
+?X a:Age ?age .
+FILTER {?age >= 5^^xsdt:int}
+}
+}}}
+    * LE[X.Age,[5]]
+{{{
+SELECT ?name ?age WHERE {
+?X a:Name ?name .
+?X a:Age ?age .
+FILTER {?age <= 5^^xsdt:int}
+}
+}}}
 
 
 ==LINQ Query Examples==
