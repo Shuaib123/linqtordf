@@ -24,10 +24,10 @@ So (A && B) || (C && D) might be represented like so:
   OrElse[AndAlso[A, B], AndAlso[C, D]]
   }}}
 
-  *ConstantExpressions
+  * ConstantExpressions
   Constant expressions will be represented by just enclosing the value inside of a set of Square Brackets. So a ConstantExpression containing the integer value 5 will be shown by `[5]`.
 
-  *MemberAccess
+  * MemberAccess
   Member access will just be represented in the usual object oriented convention. If there is a parameter called `X`, then its method `GetAllFoos()`, would be represented by `X.GetAllFoos()`. If we had a query
 {{{
   from x in y where x.Age >= 21 select x
@@ -41,9 +41,9 @@ In addition we can also represent the parameters to the method as with the relat
 
 The conventions above are sufficient to represent, tersely, the structure of simple relational and assignment expressions. More complex formulations are required for language meta instructions.
 
-  *Lambda Expressions
-  *New Expression
-  *Member Init Expression
+  * Lambda Expressions
+  * New Expression
+  * Member Init Expression
 ==Basic Principles==
 ===Relational Operators===
   * X == Y
