@@ -20,6 +20,7 @@ var q = from t in qry
 {{{
 @prefix a: <http://aabs.purl.org/ontologies/2007/04/music#> .
 @prefix xsdt: <http://xsdtUri> .
+@prefix rdfs: <http://rdfsUri> .
 
 SELECT _:Title _:ArtistName _:AlbumName _:Year _:GenreName _:Comment _:FileLocation _:Rating
 WHERE {
