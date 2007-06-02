@@ -1,9 +1,61 @@
-#summary Rules for building SPARQL queries out of LINQ queries.
+﻿#summary Rules for building SPARQL queries out of LINQ queries.
 == Introduction ==
 
 This covers the syntactic process of representing the same query in SPARQL as is represented in a LINQ query, but also rules for generating identifiers, URIs, FILTERs, UNIONs and other aspects of well-formed RDF.
 
 The example syntax for this page is based upon the [http://linqtordf.googlecode.com/svn/trunk/src/unit-testing/rdf-music/Track.cs Track] class
+==Typographic Conventions==
+The following typographic convention is employed to represent the structure of a LINQ Expression tree:
+  * Naming
+  Expressions are generally named XYZExpression. In this document the Expression type will be abbreviated to XYZ. Therefore an `OrElseExpression` would be referred to as `OrElse`. 
+  * Sub-expressions
+  A Unary Expression will have an Operand which will be represented inside of a set of square brackets, like so:
+{{{
+  Not[X]
+  }}}
+
+  A binary expression will have Left and Right properties. These are included in square brackets separated by a comma:
+{{{
+OrElse[X, Y]
+}}}
+
+So (A && B) || (C && D) might be represented like so:
+{{{
+  OrElse[AndAlso[A, B], AndAlso[C, D]]
+  }}}
+
+  *ConstantExpressions
+  Constant expressions will be represented by just enclosing the value inside of a set of Square Brackets. So a ConstantExpression containing the integer value 5 will be shown by `[5]`.
+
+  *MemberAccess
+  Member access will just be represented in the usual object oriented convention. If there is a parameter called `X`, then its method `GetAllFoos()`, would be represented by `X.GetAllFoos()`. If we had a query
+{{{
+  from x in y where x.Age >= 21 select x
+  }}}
+then the representation of the expression passed by Queryable.Where would be
+{{{
+  GE[x.Age, [21]]
+  }}}
+
+In addition we can also represent the parameters to the method as with the relational operators.A typical example is string equality which is passed in as `string.op_Equality`. This can be represented as `string.op_Equality[X.Name, [hello world]]` which would be equalivalent to the code `X.Name == "hello world"`.
+
+The conventions above are sufficient to represent, tersely, the structure of simple relational and assignment expressions. More complex formulations are required for language meta instructions.
+
+  *Lambda Expressions
+  *New Expression
+  *Member Init Expression
+==Basic Principles==
+===Relational Operators===
+  * X == Y
+    * EQ[X,Y]
+	* string.op_Equality[X, [Y]]
+{{{
+SELECT ?name ?age WHERE {
+?X a:Name ?name .
+?X a:Age ?age .
+FILTER {?name = "Y"^^xsdt:string}
+}
+  }}}
 
 
 ==LINQ Query Examples==
