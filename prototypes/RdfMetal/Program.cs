@@ -14,53 +14,6 @@ namespace RdfMetal
 
     internal class Program
     {
-        #region queries
-        static string sqGetClasses =
-            @"
-PREFIX owl:  <http://www.w3.org/2002/07/owl#>
-
-SELECT ?u
-WHERE
-	{
-	?u a owl:Class .
-	}
-";
-        static string sqGetProperties =
-            @"
-PREFIX owl:  <http://www.w3.org/2002/07/owl#>
-PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
-
-SELECT DISTINCT ?s
-WHERE
-{{
-?s rdfs:domain <{0}>.
-}}";
-        static string sqGetProperty =
-            @"
-PREFIX owl:  <http://www.w3.org/2002/07/owl#>
-PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
-
-SELECT DISTINCT ?p ?r
-WHERE
-{{
-?p a owl:DatatypeProperty .
-?p rdfs:domain <{0}>.
-?p rdfs:range ?r.
-}}";
-        static string sqGetObjectProperty =
-            @"
-PREFIX owl:  <http://www.w3.org/2002/07/owl#>
-PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
-
-SELECT DISTINCT ?p ?r
-WHERE
-{{
-?p a owl:ObjectProperty .
-?p rdfs:domain <{0}>.
-?p rdfs:range ?r.
-}}";
-        static string sqDescribeClass = @"DESCRIBE {0}";
-        #endregion
 
         private static void Main(string[] args)
         {
@@ -68,100 +21,10 @@ WHERE
             QueryClasses(opts);
         }
 
-        private static IEnumerable<string> GetClassUris(Opts opts)
-        {
-            var source = new SparqlHttpSource(opts.endpoint);
-            var properties = new ClassQuerySink(opts.ignoreBnodes, opts.@namespace, new[] { "u" });
-            source.RunSparqlQuery(sqGetClasses, properties);
-            return properties.bindings.Map(nvc => nvc["u"]);
-        }
-
-        private static IEnumerable<string> GetClassPropertyUris(Opts opts, string classUri)
-        {
-            var source = new SparqlHttpSource(opts.endpoint);
-            var properties = new ClassQuerySink(opts.ignoreBnodes, opts.@namespace, new[] { "s" });
-
-            var sparqlQuery = string.Format(sqGetProperties, classUri);
-            source.RunSparqlQuery(sparqlQuery, properties);
-            return properties.bindings.Map(nvc => nvc["s"]);
-        }
-
-        private static OntClass GetClass(Opts opts, string classUri)
-        {
-            Uri u = new Uri(classUri);
-            var source = new SparqlHttpSource(opts.endpoint);
-            var properties = new ClassQuerySink(opts.ignoreBnodes, null, new[] { "p", "r" });
-
-            var sparqlQuery = string.Format(sqGetProperty, classUri);
-            source.RunSparqlQuery(sparqlQuery, properties);
-            var q1 = properties.bindings
-                .Map(nvc => new Tuple<string, string>(nvc["p"], nvc["r"]))
-                .Where(t => (!(string.IsNullOrEmpty(t.First) || string.IsNullOrEmpty(t.Second))));
-
-            sparqlQuery = string.Format(sqGetObjectProperty, classUri);
-            source.RunSparqlQuery(sparqlQuery, properties);
-            var q2 = properties.bindings
-                .Map(nvc => new Tuple<string, string>(nvc["p"], nvc["r"]))
-                .Where(t => (!(string.IsNullOrEmpty(t.First) || string.IsNullOrEmpty(t.Second))));
-            var ops = q2.Map(t => new OntProp
-                                      {
-                                          Uri = t.First.Trim(),
-                                          IsObjectProp = true,
-                                          Name = GetNameFromUri(t.First),
-                                          Range = GetNameFromUri(t.Second)
-                                      });
-            var dps = q1.Map(t => new OntProp
-                                      {
-                                          Uri = t.First.Trim(),
-                                          IsObjectProp = false,
-                                          Name = GetNameFromUri(t.First),
-                                          Range = GetNameFromUri(t.Second)
-                                      });
-            var comparer = new PropComparer();
-            var d = new Dictionary<string, OntProp>();
-            var props = ops.Union(dps);
-            foreach (OntProp prop in props)
-            {
-                d[prop.Uri] = prop;
-            }
-            OntClass result = new OntClass
-                                  {
-                                      Name = u.Segments[u.Segments.Length - 1],
-                                      Uri = classUri,
-                                      Props = d.Values.Where(p => NamespaceMatches(opts, p)).ToArray()
-                                  };
-            return result;
-        }
-
-        private static bool NamespaceMatches(Opts opts, OntProp p)
-        {
-            if (string.IsNullOrEmpty(opts.@namespace))
-            {
-                return true;
-            }
-            return p.Uri.StartsWith(opts.@namespace);
-        }
-
-        private static string GetNameFromUri(string s)
-        {
-            Uri u = new Uri(s);
-            if (!string.IsNullOrEmpty(u.Fragment))
-            {
-                return u.Fragment.Substring(1);
-            }
-            return u.Segments[u.Segments.Length - 1];
-        }
-
-        private static IEnumerable<OntClass> GetClasses(Opts opts)
-        {
-            return GetClassUris(opts)
-                .Distinct()
-                .Where(s => !string.IsNullOrEmpty(s))
-                .Map(u => GetClass(opts, u));
-        }
         private static void QueryClasses(Opts opts)
         {
-            foreach (var c in GetClasses(opts))
+            MetadataRetriever mr = new MetadataRetriever(opts);
+            foreach (var c in mr.GetClasses())
             {
                 Debug.WriteLine("Class " + c.Name);
                 foreach (OntProp prop in c.Props)
@@ -178,27 +41,23 @@ WHERE
             return opts;
         }
 
-        #region Nested type: Opts
+    }
+    public class Opts : Options
+    {
+        [Option("The SPARQL endpoint to query.", 'e', "endpoint")]
+        public string endpoint = "http://DBpedia.org/sparql";
 
-        public class Opts : Options
+        [Option("An XML Namespace to extract classes from.", 'n', "namespace")]
+        public string @namespace = "";
+
+        [Option("Ignore BNodes.", 'i', "ignorebnodes")]
+        public bool ignoreBnodes = false;
+
+        public Opts()
         {
-            [Option("The SPARQL endpoint to query.", 'e', "endpoint")]
-            public string endpoint = "http://DBpedia.org/sparql";
-
-            [Option("An XML Namespace to extract classes from.", 'n', "namespace")]
-            public string @namespace = "";
-
-            [Option("Ignore BNodes.", 'i', "ignorebnodes")]
-            public bool ignoreBnodes = false;
-
-            public Opts()
-            {
-                base.ParsingMode = OptionsParsingMode.Both;
-            }
-
+            base.ParsingMode = OptionsParsingMode.Both;
         }
 
-        #endregion
     }
 
     public class ClassQuerySink : QueryResultSink
@@ -324,41 +183,4 @@ WHERE
     }
 
     #endregion
-
-    public class OntClass
-    {
-        public string Uri { get; set; }
-        public string Name { get; set; }
-        public OntProp[] Props { get; set; }
-    }
-
-    public class PropComparer : IEqualityComparer<OntProp>
-    {
-        public bool Equals(OntProp x, OntProp y)
-        {
-            var b = x.Uri.Equals(y.Uri);
-            return b;
-        }
-
-        public int GetHashCode(OntProp obj)
-        {
-            return obj.GetHashCode();
-        }
-    }
-
-    public class OntProp
-    {
-        public override bool Equals(object obj)
-        {
-            OntProp x = obj as OntProp;
-            if (x == null)
-                return false;
-            return this.Uri.Equals(x.Uri);
-        }
-
-        public string Uri { get; set; }
-        public bool IsObjectProp { get; set; }
-        public string Name { get; set; }
-        public string Range { get; set; }
-    }
 }
