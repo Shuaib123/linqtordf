@@ -47,6 +47,18 @@ WHERE
 ?p rdfs:domain <{0}>.
 ?p rdfs:range ?r.
 }}";
+        static string sqGetObjectProperty =
+            @"
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?p ?r
+WHERE
+{{
+?p a owl:ObjectProperty .
+?p rdfs:domain <{0}>.
+?p rdfs:range ?r.
+}}";
         static string sqDescribeClass = @"DESCRIBE {0}";
         #endregion
 
@@ -59,9 +71,9 @@ WHERE
         private static IEnumerable<string> GetClassUris(Opts opts)
         {
             var source = new SparqlHttpSource(opts.endpoint);
-            var properties = new ClassQuerySink(opts.ignoreBnodes, opts.@namespace, new[]{"u"});
+            var properties = new ClassQuerySink(opts.ignoreBnodes, opts.@namespace, new[] { "u" });
             source.RunSparqlQuery(sqGetClasses, properties);
-            return properties.bindings.Map(nvc=>nvc["u"]);
+            return properties.bindings.Map(nvc => nvc["u"]);
         }
 
         private static IEnumerable<string> GetClassPropertyUris(Opts opts, string classUri)
@@ -71,29 +83,83 @@ WHERE
 
             var sparqlQuery = string.Format(sqGetProperties, classUri);
             source.RunSparqlQuery(sparqlQuery, properties);
-            return properties.bindings.Map(nvc=>nvc["s"]);
+            return properties.bindings.Map(nvc => nvc["s"]);
         }
 
-        private static IEnumerable<Tuple<string, string>> GetClassProperties(Opts opts, string classUri)
+        private static OntClass GetClass(Opts opts, string classUri)
         {
+            Uri u = new Uri(classUri);
             var source = new SparqlHttpSource(opts.endpoint);
             var properties = new ClassQuerySink(opts.ignoreBnodes, null, new[] { "p", "r" });
 
             var sparqlQuery = string.Format(sqGetProperty, classUri);
             source.RunSparqlQuery(sparqlQuery, properties);
-            return properties.bindings
+            var q1 = properties.bindings
                 .Map(nvc => new Tuple<string, string>(nvc["p"], nvc["r"]))
                 .Where(t => (!(string.IsNullOrEmpty(t.First) || string.IsNullOrEmpty(t.Second))));
+
+            sparqlQuery = string.Format(sqGetObjectProperty, classUri);
+            source.RunSparqlQuery(sparqlQuery, properties);
+            var q2 = properties.bindings
+                .Map(nvc => new Tuple<string, string>(nvc["p"], nvc["r"]))
+                .Where(t => (!(string.IsNullOrEmpty(t.First) || string.IsNullOrEmpty(t.Second))));
+            var ops = q2.Map(t => new OntProp
+                                      {
+                                          Uri = t.First.Trim(),
+                                          IsObjectProp = true,
+                                          Name = GetNameFromUri(t.First),
+                                          Range = GetNameFromUri(t.Second)
+                                      });
+            var dps = q1.Map(t => new OntProp
+                                      {
+                                          Uri = t.First.Trim(),
+                                          IsObjectProp = false,
+                                          Name = GetNameFromUri(t.First),
+                                          Range = GetNameFromUri(t.Second)
+                                      });
+            var comparer = new PropComparer();
+            var d = new Dictionary<string, OntProp>();
+            var props = ops.Union(dps);
+            foreach (OntProp prop in props)
+            {
+                d[prop.Uri] = prop;
+            }
+            OntClass result = new OntClass
+                                  {
+                                      Name = u.Segments[u.Segments.Length - 1],
+                                      Uri = classUri,
+                                      Props = d.Values.Where(p => NamespaceMatches(opts, p)).ToArray()
+                                  };
+            return result;
+        }
+
+        private static bool NamespaceMatches(Opts opts, OntProp p)
+        {
+            if (string.IsNullOrEmpty(opts.@namespace))
+            {
+                return true;
+            }
+            return p.Uri.StartsWith(opts.@namespace);
+        }
+
+        private static string GetNameFromUri(string s)
+        {
+            Uri u = new Uri(s);
+            if (!string.IsNullOrEmpty(u.Fragment))
+            {
+                return u.Fragment.Substring(1);
+            }
+            return u.Segments[u.Segments.Length - 1];
         }
 
         private static void QueryClasses(Opts opts)
         {
-            foreach (var uri in GetClassUris(opts).Distinct())
+            foreach (var c in GetClassUris(opts).Distinct().Where(s => !string.IsNullOrEmpty(s)).Map(u => GetClass(opts, u)))
             {
-                Debug.WriteLine("Class " + uri);
-                foreach (var t3 in GetClassProperties(opts, uri))
+                Debug.WriteLine("Class " + c.Name);
+                foreach (OntProp prop in c.Props)
                 {
-                    Debug.WriteLine(string.Format("  Prop: {0} (r:{1}", t3.First, t3.Second));
+                    Debug.WriteLine(string.Format("\t{0} ({1})", prop.Name, prop.Range));
                 }
             }
         }
@@ -146,7 +212,7 @@ WHERE
         public override bool Add(VariableBindings result)
         {
             NameValueCollection nvc = new NameValueCollection();
-            
+
             foreach (string varName in varNames)
             {
                 Resource resource = result[varName];
@@ -165,7 +231,7 @@ WHERE
                         nvc[varName] = bn.LocalName;
                     }
                 }
-                
+
             }
             bindings.Add(nvc);
             return true;
@@ -254,13 +320,38 @@ WHERE
 
     public class OntClass
     {
-        string Name { get; set; }
-        public OntProp Props { get; set; }
+        public string Uri { get; set; }
+        public string Name { get; set; }
+        public OntProp[] Props { get; set; }
+    }
+
+    public class PropComparer : IEqualityComparer<OntProp>
+    {
+        public bool Equals(OntProp x, OntProp y)
+        {
+            var b = x.Uri.Equals(y.Uri);
+            return b;
+        }
+
+        public int GetHashCode(OntProp obj)
+        {
+            return obj.GetHashCode();
+        }
     }
 
     public class OntProp
     {
-        string Name { get; set; }
-        string Range { get; set; }
+        public override bool Equals(object obj)
+        {
+            OntProp x = obj as OntProp;
+            if (x == null)
+                return false;
+            return this.Uri.Equals(x.Uri);
+        }
+
+        public string Uri { get; set; }
+        public bool IsObjectProp { get; set; }
+        public string Name { get; set; }
+        public string Range { get; set; }
     }
 }
