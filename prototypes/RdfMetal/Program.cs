@@ -152,9 +152,16 @@ WHERE
             return u.Segments[u.Segments.Length - 1];
         }
 
+        private static IEnumerable<OntClass> GetClasses(Opts opts)
+        {
+            return GetClassUris(opts)
+                .Distinct()
+                .Where(s => !string.IsNullOrEmpty(s))
+                .Map(u => GetClass(opts, u));
+        }
         private static void QueryClasses(Opts opts)
         {
-            foreach (var c in GetClassUris(opts).Distinct().Where(s => !string.IsNullOrEmpty(s)).Map(u => GetClass(opts, u)))
+            foreach (var c in GetClasses(opts))
             {
                 Debug.WriteLine("Class " + c.Name);
                 foreach (OntProp prop in c.Props)
