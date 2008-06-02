@@ -12,7 +12,7 @@ namespace RdfMetal
             this.opts = opts;
         }
         Opts opts { get; set; }
-        public IEnumerable<OntClass> GetClasses()
+        public IEnumerable<OntologyClass> GetClasses()
         {
             return GetClassUris()
                 .Distinct()
@@ -28,7 +28,7 @@ namespace RdfMetal
             return properties.bindings.Map(nvc => nvc["u"]);
         }
 
-        private OntClass GetClass(string classUri)
+        private OntologyClass GetClass(string classUri)
         {
             var u = new Uri(classUri);
             var source = new SparqlHttpSource(opts.endpoint);
@@ -45,31 +45,31 @@ namespace RdfMetal
             IEnumerable<Tuple<string, string>> q2 = properties.bindings
                 .Map(nvc => new Tuple<string, string>(nvc["p"], nvc["r"]))
                 .Where(t => (!(string.IsNullOrEmpty(t.First) || string.IsNullOrEmpty(t.Second))));
-            IEnumerable<OntProp> ops = q2.Map(t => new OntProp
+            IEnumerable<OntologyProperty> ops = q2.Map(t => new OntologyProperty
                                                        {
                                                            Uri = t.First.Trim(),
                                                            IsObjectProp = true,
                                                            Name = GetNameFromUri(t.First),
                                                            Range = GetNameFromUri(t.Second)
                                                        });
-            IEnumerable<OntProp> dps = q1.Map(t => new OntProp
+            IEnumerable<OntologyProperty> dps = q1.Map(t => new OntologyProperty
                                                        {
                                                            Uri = t.First.Trim(),
                                                            IsObjectProp = false,
                                                            Name = GetNameFromUri(t.First),
                                                            Range = GetNameFromUri(t.Second)
                                                        });
-            var d = new Dictionary<string, OntProp>();
-            IEnumerable<OntProp> props = ops.Union(dps);
-            foreach (OntProp prop in props)
+            var d = new Dictionary<string, OntologyProperty>();
+            IEnumerable<OntologyProperty> props = ops.Union(dps);
+            foreach (OntologyProperty prop in props)
             {
                 d[prop.Uri] = prop;
             }
-            var result = new OntClass
+            var result = new OntologyClass
                              {
                                  Name = u.Segments[u.Segments.Length - 1],
                                  Uri = classUri,
-                                 Props = d.Values.Where(p => NamespaceMatches(p)).ToArray()
+                                 Properties = d.Values.Where(p => NamespaceMatches(p)).ToArray()
                              };
             return result;
         }
@@ -84,7 +84,7 @@ namespace RdfMetal
             return u.Segments[u.Segments.Length - 1];
         }
 
-        private bool NamespaceMatches(OntProp p)
+        private bool NamespaceMatches(OntologyProperty p)
         {
             if (string.IsNullOrEmpty(opts.@namespace))
             {
@@ -135,14 +135,14 @@ WHERE
         #endregion
     }
 
-    public class OntClass
+    public class OntologyClass
     {
         public string Uri { get; set; }
         public string Name { get; set; }
-        public OntProp[] Props { get; set; }
+        public OntologyProperty[] Properties { get; set; }
     }
 
-    public class OntProp
+    public class OntologyProperty
     {
         public string Uri { get; set; }
         public bool IsObjectProp { get; set; }

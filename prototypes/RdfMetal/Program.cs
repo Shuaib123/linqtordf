@@ -27,7 +27,7 @@ namespace RdfMetal
             foreach (var c in mr.GetClasses())
             {
                 Debug.WriteLine("Class " + c.Name);
-                foreach (OntProp prop in c.Props)
+                foreach (OntologyProperty prop in c.Properties)
                 {
                     Debug.WriteLine(string.Format("\t{0} ({1})", prop.Name, prop.Range));
                 }
