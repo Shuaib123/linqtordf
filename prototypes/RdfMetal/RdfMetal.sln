@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdfMetal", "RdfMetal.csproj", "{C7765FC0-D249-47F4-9F99-7C7E8ADEA1FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdfMetal.Extras", "..\RdfMetal.Extras\RdfMetal.Extras.csproj", "{F1D1149D-E2C8-4592-AF6F-07CDF7184C4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{C7765FC0-D249-47F4-9F99-7C7E8ADEA1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7765FC0-D249-47F4-9F99-7C7E8ADEA1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7765FC0-D249-47F4-9F99-7C7E8ADEA1FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1D1149D-E2C8-4592-AF6F-07CDF7184C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1D1149D-E2C8-4592-AF6F-07CDF7184C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1D1149D-E2C8-4592-AF6F-07CDF7184C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1D1149D-E2C8-4592-AF6F-07CDF7184C4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

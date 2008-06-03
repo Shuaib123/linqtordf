@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<OntologyModel>
+  <OntClass uri="http://xmlns.com/foaf/0.1/Person" name="Person">
+    <OntProp uri="http://xmlns.com/foaf/0.1/surname" name="surname" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/family_name" name="family_name" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/geekcode" name="geekcode" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/firstName" name="firstName" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/plan" name="plan" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/knows" name="knows" IsObjectProp="False" Range="Person" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/img" name="img" IsObjectProp="False" Range="Image" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/myersBriggs" name="myersBriggs" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/workplaceHomepage" name="workplaceHomepage" IsObjectProp="False" Range="Document" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/workInfoHomepage" name="workInfoHomepage" IsObjectProp="False" Range="Document" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/schoolHomepage" name="schoolHomepage" IsObjectProp="False" Range="Document" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/interest" name="interest" IsObjectProp="False" Range="Document" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/topic_interest" name="topic_interest" IsObjectProp="False" Range="Thing" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/publications" name="publications" IsObjectProp="False" Range="Document" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/currentProject" name="currentProject" IsObjectProp="False" Range="Thing" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/pastProject" name="pastProject" IsObjectProp="False" Range="Thing" />
+  </OntClass>
+  <OntClass uri="http://xmlns.com/foaf/0.1/Document" name="Document">
+    <OntProp uri="http://xmlns.com/foaf/0.1/primaryTopic" name="primaryTopic" IsObjectProp="False" Range="Thing" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/topic" name="topic" IsObjectProp="False" Range="Thing" />
+  </OntClass>
+  <OntClass uri="http://xmlns.com/foaf/0.1/Agent" name="Agent">
+    <OntProp uri="http://xmlns.com/foaf/0.1/mbox_sha1sum" name="mbox_sha1sum" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/gender" name="gender" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/jabberID" name="jabberID" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/aimChatID" name="aimChatID" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/icqChatID" name="icqChatID" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/yahooChatID" name="yahooChatID" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/msnChatID" name="msnChatID" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/birthday" name="birthday" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/mbox" name="mbox" IsObjectProp="False" Range="Thing" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/weblog" name="weblog" IsObjectProp="False" Range="Document" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/openid" name="openid" IsObjectProp="False" Range="Document" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/tipjar" name="tipjar" IsObjectProp="False" Range="Document" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/made" name="made" IsObjectProp="False" Range="Thing" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/holdsAccount" name="holdsAccount" IsObjectProp="False" Range="OnlineAccount" />
+  </OntClass>
+  <OntClass uri="http://xmlns.com/foaf/0.1/Organization" name="Organization" />
+  <OntClass uri="http://xmlns.com/foaf/0.1/Project" name="Project" />
+  <OntClass uri="http://xmlns.com/foaf/0.1/Group" name="Group">
+    <OntProp uri="http://xmlns.com/foaf/0.1/member" name="member" IsObjectProp="False" Range="Agent" />
+  </OntClass>
+  <OntClass uri="http://xmlns.com/foaf/0.1/Image" name="Image">
+    <OntProp uri="http://xmlns.com/foaf/0.1/depicts" name="depicts" IsObjectProp="False" Range="Thing" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/thumbnail" name="thumbnail" IsObjectProp="False" Range="Image" />
+  </OntClass>
+  <OntClass uri="http://xmlns.com/foaf/0.1/PersonalProfileDocument" name="PersonalProfileDocument" />
+  <OntClass uri="http://xmlns.com/foaf/0.1/OnlineAccount" name="OnlineAccount">
+    <OntProp uri="http://xmlns.com/foaf/0.1/accountName" name="accountName" IsObjectProp="False" Range="Literal" />
+    <OntProp uri="http://xmlns.com/foaf/0.1/accountServiceHomepage" name="accountServiceHomepage" IsObjectProp="False" Range="Document" />
+  </OntClass>
+  <OntClass uri="http://xmlns.com/foaf/0.1/OnlineGamingAccount" name="OnlineGamingAccount" />
+  <OntClass uri="http://xmlns.com/foaf/0.1/OnlineEcommerceAccount" name="OnlineEcommerceAccount" />
+  <OntClass uri="http://xmlns.com/foaf/0.1/OnlineChatAccount" name="OnlineChatAccount" />
+</OntologyModel>

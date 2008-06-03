@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Xml;
 using Mono;
 using Mono.GetOptions;
 using SemWeb;
@@ -24,14 +26,12 @@ namespace RdfMetal
         private static void QueryClasses(Opts opts)
         {
             MetadataRetriever mr = new MetadataRetriever(opts);
-            foreach (var c in mr.GetClasses())
-            {
-                Debug.WriteLine("Class " + c.Name);
-                foreach (OntologyProperty prop in c.Properties)
-                {
-                    Debug.WriteLine(string.Format("\t{0} ({1})", prop.Name, prop.Range));
-                }
-            }
+            List<OntologyClass> classes = new List<OntologyClass>(mr.GetClasses());
+            ModelWriter mw = new ModelWriter();
+            mw.Write(opts.output, classes);
+            Process.Start(
+                @"C:\Program Files\Microsoft Visual Studio 2008 SDK\VisualStudioIntegration\Tools\Bin\DslTextTransform.cmd",
+                @"C:\dev\semantic-web\LinqToRdf.Prototypes\RdfMetal\DomainModel.tt");
         }
 
         private static Opts ProcessOptions(string[] args)
@@ -42,6 +42,60 @@ namespace RdfMetal
         }
 
     }
+
+    public class ModelWriter
+    {
+        public void Write(string output, IEnumerable<OntologyClass> classes)
+        {
+            SetupXmlStream(output);
+            foreach (OntologyClass oc in classes)
+            {
+                WriteClass(oc);
+            }
+            FinaliseXmlStream();
+        }
+
+        private void WriteClass(OntologyClass oc)
+        {
+            xml.WriteStartElement("OntClass");
+            {
+                xml.WriteAttributeString("uri", oc.Uri);
+                xml.WriteAttributeString("name", oc.Name);
+                foreach (var prop in oc.Properties)
+                {
+                    xml.WriteStartElement("OntProp");
+                    {
+                        xml.WriteAttributeString("uri", prop.Uri);
+                        xml.WriteAttributeString("name", prop.Name);
+                        xml.WriteAttributeString("IsObjectProp", prop.IsObjectProp.ToString());
+                        xml.WriteAttributeString("Range", prop.Range);
+                    }
+                    xml.WriteEndElement();
+                }
+            }
+            xml.WriteEndElement();
+        }
+        private void SetupXmlStream(string output)
+        {
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.OmitXmlDeclaration = false;
+            settings.NewLineOnAttributes = false;
+            xml = XmlWriter.Create(output, settings);
+            xml.WriteStartDocument(true);
+            xml.WriteStartElement("OntologyModel");
+        }
+
+        public XmlWriter xml { get; set; }
+
+        private void FinaliseXmlStream()
+        {
+            xml.WriteEndElement(); // end the root node
+            xml.WriteEndDocument();
+            xml.Flush();
+            xml.Close();
+        }
+    }
     public class Opts : Options
     {
         [Option("The SPARQL endpoint to query.", 'e', "endpoint")]
@@ -49,6 +103,9 @@ namespace RdfMetal
 
         [Option("An XML Namespace to extract classes from.", 'n', "namespace")]
         public string @namespace = "";
+
+        [Option("where the output should go.", 'o', "output")]
+        public string @output = "";
 
         [Option("Ignore BNodes.", 'i', "ignorebnodes")]
         public bool ignoreBnodes = false;
