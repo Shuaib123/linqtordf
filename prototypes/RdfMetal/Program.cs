@@ -4,117 +4,97 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Xml;
-using Mono;
-using Mono.GetOptions;
+using System.Text;
+using System.Xml.Serialization;
 using SemWeb;
 using SemWeb.Query;
-using SemWeb.Remote;
-
+/*
+ * -i -n http://xmlns.com/foaf/0.1/ -o ..\..\out.cs -m meta.xml
+ * -e:http://DBpedia.org/sparql -i -n http://xmlns.com/foaf/0.1/ -o ..\..\out.cs -m meta.xml
+ * */
 namespace RdfMetal
 {
-
     internal class Program
     {
-
         private static void Main(string[] args)
         {
-            Opts opts = ProcessOptions(args);
+            Options opts = ProcessOptions(args);
             QueryClasses(opts);
         }
 
-        private static void QueryClasses(Opts opts)
+        private static void QueryClasses(Options opts)
         {
-            MetadataRetriever mr = new MetadataRetriever(opts);
-            List<OntologyClass> classes = new List<OntologyClass>(mr.GetClasses());
-            ModelWriter mw = new ModelWriter();
-            mw.Write(opts.output, classes);
-            Process.Start(
-                @"C:\Program Files\Microsoft Visual Studio 2008 SDK\VisualStudioIntegration\Tools\Bin\DslTextTransform.cmd",
-                @"C:\dev\semantic-web\LinqToRdf.Prototypes\RdfMetal\DomainModel.tt");
+            IEnumerable<OntologyClass> classes = null;
+
+            if (!string.IsNullOrEmpty(opts.endpoint))
+            {
+                var mr = new MetadataRetriever(opts);
+                classes = new List<OntologyClass>(mr.GetClasses());
+            }
+
+            if (!string.IsNullOrEmpty(opts.metadata) && classes != null)
+            {
+                var mw = new ModelWriter();
+                mw.Write(opts.metadata, classes);
+            }
+
+            if (classes == null && !string.IsNullOrEmpty(opts.metadata))
+            {
+                var mw = new ModelWriter();
+                classes = mw.Read(opts.metadata);
+            }
+
+            if (!string.IsNullOrEmpty(opts.@output) && classes != null)
+            {
+                var cg = new CodeGenerator();
+                string code = cg.Generate(classes, opts);
+                WriteSource(opts.output, code);
+            }
         }
 
-        private static Opts ProcessOptions(string[] args)
+        private static void WriteSource(string path, string code)
         {
-            Opts opts = new Opts();
+            StreamWriter sw = null;
+            try
+            {
+                sw = new StreamWriter(path, false);
+                sw.Write(code);
+            }
+            finally
+            {
+                if (sw != null)
+                    sw.Close();
+            }
+        }
+
+        private static Options ProcessOptions(string[] args)
+        {
+            var opts = new Options();
             opts.ProcessArgs(args);
             return opts;
         }
-
     }
 
     public class ModelWriter
     {
         public void Write(string output, IEnumerable<OntologyClass> classes)
         {
-            SetupXmlStream(output);
-            foreach (OntologyClass oc in classes)
-            {
-                WriteClass(oc);
-            }
-            FinaliseXmlStream();
+            var serializer = new XmlSerializer(typeof (OntologyClass[]));
+            var fs = new FileStream(output, FileMode.Create);
+            TextWriter writer = new StreamWriter(fs, new UTF8Encoding());
+            // Serialize using the XmlTextWriter.
+            serializer.Serialize(writer, classes.ToArray());
+            writer.Close();
         }
 
-        private void WriteClass(OntologyClass oc)
+        public IEnumerable<OntologyClass> Read(string path)
         {
-            xml.WriteStartElement("OntClass");
-            {
-                xml.WriteAttributeString("uri", oc.Uri);
-                xml.WriteAttributeString("name", oc.Name);
-                foreach (var prop in oc.Properties)
-                {
-                    xml.WriteStartElement("OntProp");
-                    {
-                        xml.WriteAttributeString("uri", prop.Uri);
-                        xml.WriteAttributeString("name", prop.Name);
-                        xml.WriteAttributeString("IsObjectProp", prop.IsObjectProp.ToString());
-                        xml.WriteAttributeString("Range", prop.Range);
-                    }
-                    xml.WriteEndElement();
-                }
-            }
-            xml.WriteEndElement();
+            var serializer = new XmlSerializer(typeof (OntologyClass[]));
+            // Create a TextReader to read the file. 
+            var fs = new FileStream(path, FileMode.OpenOrCreate);
+            TextReader reader = new StreamReader(fs);
+            return (OntologyClass[]) serializer.Deserialize(reader);
         }
-        private void SetupXmlStream(string output)
-        {
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.OmitXmlDeclaration = false;
-            settings.NewLineOnAttributes = false;
-            xml = XmlWriter.Create(output, settings);
-            xml.WriteStartDocument(true);
-            xml.WriteStartElement("OntologyModel");
-        }
-
-        public XmlWriter xml { get; set; }
-
-        private void FinaliseXmlStream()
-        {
-            xml.WriteEndElement(); // end the root node
-            xml.WriteEndDocument();
-            xml.Flush();
-            xml.Close();
-        }
-    }
-    public class Opts : Options
-    {
-        [Option("The SPARQL endpoint to query.", 'e', "endpoint")]
-        public string endpoint = "http://DBpedia.org/sparql";
-
-        [Option("An XML Namespace to extract classes from.", 'n', "namespace")]
-        public string @namespace = "";
-
-        [Option("where the output should go.", 'o', "output")]
-        public string @output = "";
-
-        [Option("Ignore BNodes.", 'i', "ignorebnodes")]
-        public bool ignoreBnodes = false;
-
-        public Opts()
-        {
-            base.ParsingMode = OptionsParsingMode.Both;
-        }
-
     }
 
     public class ClassQuerySink : QueryResultSink
@@ -123,6 +103,8 @@ namespace RdfMetal
         private readonly string @namespace;
         private readonly string[] varNames;
 
+        public List<NameValueCollection> bindings = new List<NameValueCollection>();
+
         public ClassQuerySink(bool ignoreBnodes, string @namespace, string[] varNames)
         {
             this.ignoreBnodes = ignoreBnodes;
@@ -130,11 +112,9 @@ namespace RdfMetal
             this.varNames = varNames;
         }
 
-        public List<NameValueCollection> bindings = new List<NameValueCollection>();
-
         public override bool Add(VariableBindings result)
         {
-            NameValueCollection nvc = new NameValueCollection();
+            var nvc = new NameValueCollection();
 
             foreach (string varName in varNames)
             {
@@ -154,19 +134,17 @@ namespace RdfMetal
                         nvc[varName] = bn.LocalName;
                     }
                 }
-
             }
             bindings.Add(nvc);
             return true;
         }
     }
+
     public class ClassDetailQuerySink : StatementSink
     {
-        public ClassDetailQuerySink()
-        {
-        }
-
         public List<Uri> ls = new List<Uri>();
+
+        #region StatementSink Members
 
         public bool Add(Statement s)
         {
@@ -174,6 +152,8 @@ namespace RdfMetal
             Debug.WriteLine(output);
             return true;
         }
+
+        #endregion
     }
 
     public enum OwlElementType

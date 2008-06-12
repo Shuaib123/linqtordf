@@ -7,12 +7,12 @@ using Mono;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RdfMetal")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A code generator for LinqToRdf")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Readify Pty Ltd")]
+[assembly: AssemblyCompany("Andrew Matthews")]
 [assembly: AssemblyProduct("RdfMetal")]
-[assembly: AssemblyCopyright("Copyright © Readify Pty Ltd 2008")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © Andrew Matthews 2008")]
+[assembly: AssemblyTrademark("LinqToRdf, RdfMetal")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -33,12 +33,12 @@ using Mono;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
 
-[assembly: UsageComplement("use like this")]
+[assembly: UsageComplement("is used with the following options")]
 // This is text that goes after " [options]" in help output.
 
 // Attributes visible in " -V"
-[assembly: Mono.About("Insert About Text Here.")]
-[assembly: Mono.Author("Your name here")]
+[assembly: Mono.About("RdfMetal allows you to generate LinqTordf compatible domain models  by querying a remote RDF triple store using SPARQL. It is a command line tool that may be either added to your build process or used as a RAD tool to kickstart development.")]
+[assembly: Mono.Author("Andrew Matthews")]

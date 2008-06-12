@@ -1,58 +1,260 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<OntologyModel>
-  <OntClass uri="http://xmlns.com/foaf/0.1/Person" name="Person">
-    <OntProp uri="http://xmlns.com/foaf/0.1/surname" name="surname" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/family_name" name="family_name" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/geekcode" name="geekcode" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/firstName" name="firstName" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/plan" name="plan" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/knows" name="knows" IsObjectProp="False" Range="Person" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/img" name="img" IsObjectProp="False" Range="Image" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/myersBriggs" name="myersBriggs" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/workplaceHomepage" name="workplaceHomepage" IsObjectProp="False" Range="Document" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/workInfoHomepage" name="workInfoHomepage" IsObjectProp="False" Range="Document" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/schoolHomepage" name="schoolHomepage" IsObjectProp="False" Range="Document" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/interest" name="interest" IsObjectProp="False" Range="Document" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/topic_interest" name="topic_interest" IsObjectProp="False" Range="Thing" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/publications" name="publications" IsObjectProp="False" Range="Document" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/currentProject" name="currentProject" IsObjectProp="False" Range="Thing" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/pastProject" name="pastProject" IsObjectProp="False" Range="Thing" />
-  </OntClass>
-  <OntClass uri="http://xmlns.com/foaf/0.1/Document" name="Document">
-    <OntProp uri="http://xmlns.com/foaf/0.1/primaryTopic" name="primaryTopic" IsObjectProp="False" Range="Thing" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/topic" name="topic" IsObjectProp="False" Range="Thing" />
-  </OntClass>
-  <OntClass uri="http://xmlns.com/foaf/0.1/Agent" name="Agent">
-    <OntProp uri="http://xmlns.com/foaf/0.1/mbox_sha1sum" name="mbox_sha1sum" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/gender" name="gender" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/jabberID" name="jabberID" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/aimChatID" name="aimChatID" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/icqChatID" name="icqChatID" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/yahooChatID" name="yahooChatID" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/msnChatID" name="msnChatID" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/birthday" name="birthday" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/mbox" name="mbox" IsObjectProp="False" Range="Thing" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/weblog" name="weblog" IsObjectProp="False" Range="Document" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/openid" name="openid" IsObjectProp="False" Range="Document" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/tipjar" name="tipjar" IsObjectProp="False" Range="Document" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/made" name="made" IsObjectProp="False" Range="Thing" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/holdsAccount" name="holdsAccount" IsObjectProp="False" Range="OnlineAccount" />
-  </OntClass>
-  <OntClass uri="http://xmlns.com/foaf/0.1/Organization" name="Organization" />
-  <OntClass uri="http://xmlns.com/foaf/0.1/Project" name="Project" />
-  <OntClass uri="http://xmlns.com/foaf/0.1/Group" name="Group">
-    <OntProp uri="http://xmlns.com/foaf/0.1/member" name="member" IsObjectProp="False" Range="Agent" />
-  </OntClass>
-  <OntClass uri="http://xmlns.com/foaf/0.1/Image" name="Image">
-    <OntProp uri="http://xmlns.com/foaf/0.1/depicts" name="depicts" IsObjectProp="False" Range="Thing" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/thumbnail" name="thumbnail" IsObjectProp="False" Range="Image" />
-  </OntClass>
-  <OntClass uri="http://xmlns.com/foaf/0.1/PersonalProfileDocument" name="PersonalProfileDocument" />
-  <OntClass uri="http://xmlns.com/foaf/0.1/OnlineAccount" name="OnlineAccount">
-    <OntProp uri="http://xmlns.com/foaf/0.1/accountName" name="accountName" IsObjectProp="False" Range="Literal" />
-    <OntProp uri="http://xmlns.com/foaf/0.1/accountServiceHomepage" name="accountServiceHomepage" IsObjectProp="False" Range="Document" />
-  </OntClass>
-  <OntClass uri="http://xmlns.com/foaf/0.1/OnlineGamingAccount" name="OnlineGamingAccount" />
-  <OntClass uri="http://xmlns.com/foaf/0.1/OnlineEcommerceAccount" name="OnlineEcommerceAccount" />
-  <OntClass uri="http://xmlns.com/foaf/0.1/OnlineChatAccount" name="OnlineChatAccount" />
-</OntologyModel>
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using LinqToRdf;
+using System.Data.Linq;
+
+namespace Some.Namespace
+{
+    public partial class SomeContext : RdfDataContext
+    {
+        public SomeContext(TripleStore store) : base(store)
+        {
+        }
+        public SomeContext(string store) : base(new TripleStore(store))
+        {
+        }
+
+		        public IQueryable<Person> Persons
+		        {
+		            get
+		            {
+		                return ForType<Person>();
+		            }
+		        }
+		
+		        public IQueryable<Document> Documents
+		        {
+		            get
+		            {
+		                return ForType<Document>();
+		            }
+		        }
+		
+		        public IQueryable<Agent> Agents
+		        {
+		            get
+		            {
+		                return ForType<Agent>();
+		            }
+		        }
+		
+		        public IQueryable<Organization> Organizations
+		        {
+		            get
+		            {
+		                return ForType<Organization>();
+		            }
+		        }
+		
+		        public IQueryable<Project> Projects
+		        {
+		            get
+		            {
+		                return ForType<Project>();
+		            }
+		        }
+		
+		        public IQueryable<Group> Groups
+		        {
+		            get
+		            {
+		                return ForType<Group>();
+		            }
+		        }
+		
+		        public IQueryable<Image> Images
+		        {
+		            get
+		            {
+		                return ForType<Image>();
+		            }
+		        }
+		
+		        public IQueryable<PersonalProfileDocument> PersonalProfileDocuments
+		        {
+		            get
+		            {
+		                return ForType<PersonalProfileDocument>();
+		            }
+		        }
+		
+		        public IQueryable<OnlineAccount> OnlineAccounts
+		        {
+		            get
+		            {
+		                return ForType<OnlineAccount>();
+		            }
+		        }
+		
+		        public IQueryable<OnlineGamingAccount> OnlineGamingAccounts
+		        {
+		            get
+		            {
+		                return ForType<OnlineGamingAccount>();
+		            }
+		        }
+		
+		        public IQueryable<OnlineEcommerceAccount> OnlineEcommerceAccounts
+		        {
+		            get
+		            {
+		                return ForType<OnlineEcommerceAccount>();
+		            }
+		        }
+		
+		        public IQueryable<OnlineChatAccount> OnlineChatAccounts
+		        {
+		            get
+		            {
+		                return ForType<OnlineChatAccount>();
+		            }
+		        }
+		
+
+    }
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="Person")]
+public partial class Person
+{
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "surname")]
+  public Literal surname {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "family_name")]
+  public Literal family_name {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "geekcode")]
+  public Literal geekcode {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "firstName")]
+  public Literal firstName {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "plan")]
+  public Literal plan {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "knows")]
+  public Person knows {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "img")]
+  public Image img {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "myersBriggs")]
+  public Literal myersBriggs {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "workplaceHomepage")]
+  public Document workplaceHomepage {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "workInfoHomepage")]
+  public Document workInfoHomepage {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "schoolHomepage")]
+  public Document schoolHomepage {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "interest")]
+  public Document interest {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "topic_interest")]
+  public Thing topic_interest {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "publications")]
+  public Document publications {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "currentProject")]
+  public Thing currentProject {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "pastProject")]
+  public Thing pastProject {get;set;}
+
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="Document")]
+public partial class Document
+{
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "primaryTopic")]
+  public Thing primaryTopic {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "topic")]
+  public Thing topic {get;set;}
+
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="Agent")]
+public partial class Agent
+{
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "mbox_sha1sum")]
+  public Literal mbox_sha1sum {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "gender")]
+  public Literal gender {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "jabberID")]
+  public Literal jabberID {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "aimChatID")]
+  public Literal aimChatID {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "icqChatID")]
+  public Literal icqChatID {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "yahooChatID")]
+  public Literal yahooChatID {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "msnChatID")]
+  public Literal msnChatID {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "birthday")]
+  public Literal birthday {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "mbox")]
+  public Thing mbox {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "weblog")]
+  public Document weblog {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "openid")]
+  public Document openid {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "tipjar")]
+  public Document tipjar {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "made")]
+  public Thing made {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "holdsAccount")]
+  public OnlineAccount holdsAccount {get;set;}
+
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="Organization")]
+public partial class Organization
+{
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="Project")]
+public partial class Project
+{
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="Group")]
+public partial class Group
+{
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "member")]
+  public Agent member {get;set;}
+
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="Image")]
+public partial class Image
+{
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "depicts")]
+  public Thing depicts {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "thumbnail")]
+  public Image thumbnail {get;set;}
+
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="PersonalProfileDocument")]
+public partial class PersonalProfileDocument
+{
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="OnlineAccount")]
+public partial class OnlineAccount
+{
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "accountName")]
+  public Literal accountName {get;set;}
+  [OwlResource(OntologyName = "SomeModelName", RelativeUriReference = "accountServiceHomepage")]
+  public Document accountServiceHomepage {get;set;}
+
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="OnlineGamingAccount")]
+public partial class OnlineGamingAccount
+{
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="OnlineEcommerceAccount")]
+public partial class OnlineEcommerceAccount
+{
+}
+
+[OwlResource(OntologyName="SomeModelName", RelativeUriReference="OnlineChatAccount")]
+public partial class OnlineChatAccount
+{
+}
+
+
+
+}

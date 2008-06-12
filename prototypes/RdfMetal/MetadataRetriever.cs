@@ -7,11 +7,11 @@ namespace RdfMetal
 {
     internal class MetadataRetriever
     {
-        public MetadataRetriever(Opts opts)
+        public MetadataRetriever(Options opts)
         {
             this.opts = opts;
         }
-        Opts opts { get; set; }
+        Options opts { get; set; }
         public IEnumerable<OntologyClass> GetClasses()
         {
             return GetClassUris()
@@ -23,7 +23,7 @@ namespace RdfMetal
         private IEnumerable<string> GetClassUris()
         {
             var source = new SparqlHttpSource(opts.endpoint);
-            var properties = new ClassQuerySink(opts.ignoreBnodes, opts.@namespace, new[] {"u"});
+            var properties = new ClassQuerySink(opts.ignoreBnodes, opts.@namespace, new[] { "u" });
             source.RunSparqlQuery(sqGetClasses, properties);
             return properties.bindings.Map(nvc => nvc["u"]);
         }
@@ -32,7 +32,7 @@ namespace RdfMetal
         {
             var u = new Uri(classUri);
             var source = new SparqlHttpSource(opts.endpoint);
-            var properties = new ClassQuerySink(opts.ignoreBnodes, null, new[] {"p", "r"});
+            var properties = new ClassQuerySink(opts.ignoreBnodes, null, new[] { "p", "r" });
 
             string sparqlQuery = string.Format(sqGetProperty, classUri);
             source.RunSparqlQuery(sparqlQuery, properties);
@@ -60,7 +60,7 @@ namespace RdfMetal
                                                            Range = GetNameFromUri(t.Second)
                                                        });
             var d = new Dictionary<string, OntologyProperty>();
-            IEnumerable<OntologyProperty> props = ops.Union(dps);
+            IEnumerable<OntologyProperty> props = ops.Union(dps).Map(p => TranslateType(p));
             foreach (OntologyProperty prop in props)
             {
                 d[prop.Uri] = prop;
@@ -72,6 +72,30 @@ namespace RdfMetal
                                  Properties = d.Values.Where(p => NamespaceMatches(p)).ToArray()
                              };
             return result;
+        }
+
+        private OntologyProperty TranslateType(OntologyProperty p)
+        {
+            string newtype;
+            switch (p.Range)
+            {
+                case "Literal":
+                    newtype = "string";
+                    break;
+                case "Thing":
+                    newtype = "LinqToRdf.OwlInstanceSupertype";
+                    break;
+                default:
+                    newtype = p.Range;
+                    break;
+            }
+            return new OntologyProperty
+                       {
+                           IsObjectProp=p.IsObjectProp,
+                           Name=p.Name,
+                           Range=newtype,
+                           Uri=p.Uri
+                       };
         }
 
         private string GetNameFromUri(string s)
