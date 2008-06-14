@@ -5,7 +5,7 @@ using SemWeb.Remote;
 
 namespace RdfMetal
 {
-    internal class MetadataRetriever
+    public class MetadataRetriever
     {
         public MetadataRetriever(Options opts)
         {
@@ -31,6 +31,7 @@ namespace RdfMetal
         private OntologyClass GetClass(string classUri)
         {
             var u = new Uri(classUri);
+            string className = GetNameFromUri(classUri); Console.WriteLine(className);
             var source = new SparqlHttpSource(opts.endpoint);
             var properties = new ClassQuerySink(opts.ignoreBnodes, null, new[] { "p", "r" });
 
@@ -71,6 +72,7 @@ namespace RdfMetal
                                  Uri = classUri,
                                  Properties = d.Values.Where(p => NamespaceMatches(p)).ToArray()
                              };
+
             return result;
         }
 
@@ -91,10 +93,10 @@ namespace RdfMetal
             }
             return new OntologyProperty
                        {
-                           IsObjectProp=p.IsObjectProp,
-                           Name=p.Name,
-                           Range=newtype,
-                           Uri=p.Uri
+                           IsObjectProp = p.IsObjectProp,
+                           Name = p.Name,
+                           Range = newtype,
+                           Uri = p.Uri
                        };
         }
 
@@ -157,20 +159,5 @@ WHERE
 }}";
 
         #endregion
-    }
-
-    public class OntologyClass
-    {
-        public string Uri { get; set; }
-        public string Name { get; set; }
-        public OntologyProperty[] Properties { get; set; }
-    }
-
-    public class OntologyProperty
-    {
-        public string Uri { get; set; }
-        public bool IsObjectProp { get; set; }
-        public string Name { get; set; }
-        public string Range { get; set; }
     }
 }
