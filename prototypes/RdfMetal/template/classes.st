@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using LinqToRdf;
 using System.Data.Linq;
+$refs:namespaceref()$
 
-namespace Some.Namespace
+namespace $opts.dotnetNamespace$
 {
 [assembly: Ontology(
     BaseUri = "$uri$",

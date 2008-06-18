@@ -5,14 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30428</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C7765FC0-D249-47F4-9F99-7C7E8ADEA1FC}</ProjectGuid>
+    <ProjectGuid>{EB146F7D-C547-4D5E-9053-9348FAF8B859}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RdfMetal</RootNamespace>
-    <AssemblyName>RdfMetal</AssemblyName>
+    <RootNamespace>TestHarness</RootNamespace>
+    <AssemblyName>TestHarness</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>RdfMetal.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,22 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="linqtordf, Version=0.6.0.0, Culture=neutral, PublicKeyToken=b4817ea031ba32f1, processorArchitecture=MSIL">
+    <Reference Include="linqtordf, Version=0.7.0.0, Culture=neutral, PublicKeyToken=b4817ea031ba32f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\linqtordf\src\linqtordf\bin\Debug\linqtordf.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.TextTemplating, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Mono.GetOptions, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Mono.GetOptions.dll</HintPath>
-    </Reference>
     <Reference Include="semweb.merged, Version=1.0.5.0, Culture=neutral, PublicKeyToken=b4817ea031ba32f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\semweb.merged.dll</HintPath>
-    </Reference>
-    <Reference Include="StringTemplate, Version=3.0.1.6846, Culture=neutral, PublicKeyToken=beee492b52c41e85, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\StringTemplate.dll</HintPath>
+      <HintPath>..\..\linqtordf\lib\semweb.merged.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -66,25 +56,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassDetailQuerySink.cs" />
-    <Compile Include="ClassQuerySink.cs" />
-    <Compile Include="CodeGenerator.cs" />
-    <Compile Include="FunctionalExtensions.cs" />
-    <Compile Include="MetadataRetriever.cs" />
-    <Compile Include="ModelWriter.cs" />
-    <Compile Include="OntologyClass.cs" />
-    <Compile Include="OntologyProperty.cs" />
-    <Compile Include="Options.cs" />
-    <Compile Include="OwlElementType.cs" />
+    <Compile Include="foaf.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="frbr.cs" />
+    <Compile Include="mo.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tuples.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="meta.xml" />
+    <Compile Include="space.cs" />
+    <Compile Include="time.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -94,4 +78,12 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)$(OutDir)RdfMetal.exe -i -n http://purl.org/vocab/frbr/core# -o "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\frbr.cs" -m "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\frbr.xml" -N:RdfMetal.Frbr -h frbr
+$(SolutionDir)$(OutDir)RdfMetal.exe -i -n http://xmlns.com/foaf/0.1/ -o "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\foaf.cs" -m "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\foaf.xml" -N:RdfMetal.Foaf -h foaf
+$(SolutionDir)$(OutDir)RdfMetal.exe -i -n http://www.w3.org/2006/time# -o "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\time.cs" -m "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\time.xml" -N:RdfMetal.Time -h time
+$(SolutionDir)$(OutDir)RdfMetal.exe -i -n http://www.w3.org/2003/01/geo/wgs84_pos# -o "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\space.cs" -m "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\space.xml" -N:RdfMetal.Space -h space
+$(SolutionDir)$(OutDir)RdfMetal.exe -i -n http://purl.org/ontology/mo/ -o "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\mo.cs" -m "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\meta.xml" -N:RdfMetal.Music -r:RdfMetal.Foaf,RdfMetal.Time,RdfMetal.Space,RdfMetal.Frbr -h music
+</PreBuildEvent>
+  </PropertyGroup>
 </Project>

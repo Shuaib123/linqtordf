@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 
 /*
- * -i -n http://xmlns.com/foaf/0.1/ -o ..\..\out.cs -m ..\..\meta.xml
- * -e:http://DBpedia.org/sparql -i -n http://xmlns.com/foaf/0.1/ -o ..\..\out.cs -m ..\..\meta.xml
+ * -i -n http://purl.org/ontology/mo/ -o ..\..\out.cs -m ..\..\meta.xml
+ * -e:http://DBpedia.org/sparql -i -n http://purl.org/ontology/mo/ -o ..\..\out.cs -m ..\..\meta.xml
+ * 
+ * -i -n http://purl.org/ontology/mo/ -o "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\mo.cs" -m "C:\shared.datastore\repository\personal\dev\projects\semantic-web\LinqToRdf.Prototypes\TestHarness\meta.xml"
  * */
 namespace RdfMetal
 {
@@ -22,40 +24,27 @@ namespace RdfMetal
                 classes = new List<OntologyClass>(mr.GetClasses());
             }
 
-            if (!string.IsNullOrEmpty(opts.metadata) && classes != null)
+            if (!string.IsNullOrEmpty(opts.metadataLocation) && classes != null)
             {
                 var mw = new ModelWriter();
-                mw.Write(opts.metadata, classes);
+                mw.Write(opts.metadataLocation, classes);
             }
 
-            if (classes == null && !string.IsNullOrEmpty(opts.metadata))
+            if (classes == null && !string.IsNullOrEmpty(opts.metadataLocation))
             {
                 var mw = new ModelWriter();
-                classes = mw.Read(opts.metadata);
+                classes = mw.Read(opts.metadataLocation);
             }
 
-            if (!string.IsNullOrEmpty(opts.@output) && classes != null)
+            if (!string.IsNullOrEmpty(opts.sourceLocation) && classes != null)
             {
-                AnnotateClasses(classes);
-                ProcessClassRelationships(classes);
                 var cg = new CodeGenerator();
                 string code = cg.Generate(classes, opts);
-                WriteSource(opts.output, code);
+                WriteSource(opts.sourceLocation, code);
             }
 	    Console.WriteLine("done.");
-            Console.ReadKey();
         }
 
-        private static void AnnotateClasses(IEnumerable<OntologyClass> classes)
-        {
-            foreach (var c in classes)
-            {
-                foreach (var p in c.Properties)
-                {
-                    p.HostClass = c;
-                }
-            }
-        }
 
         private static void WriteSource(string path, string code)
         {
@@ -79,16 +68,5 @@ namespace RdfMetal
             return opts;
         }
 
-        public static void ProcessClassRelationships(IEnumerable<OntologyClass> classes)
-        {
-            foreach (var ontCls in classes)
-            {
-                ontCls.IncomingRelationships = classes
-                    .Map(c => c.OutgoingRelationships.AsEnumerable())
-                    .Flatten()
-                    .Where(p=>p.Range == ontCls.Name)
-                    .ToArray(); 
-            }
-        }
     }
 }

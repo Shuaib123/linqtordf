@@ -4,22 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using LinqToRdf;
 using System.Data.Linq;
+using RdfMetal.Foaf;using RdfMetal.Time;using RdfMetal.Space;using RdfMetal.Frbr;
 
-namespace Some.Namespace
+namespace RdfMetal.Music
 {
 [assembly: Ontology(
     BaseUri = "http://purl.org/ontology/mo/",
-    Name = "MyOntology",
-    Prefix = "MyOntology",
+    Name = "music",
+    Prefix = "music",
     UrlOfOntology = "http://purl.org/ontology/mo/")]
 
 
-    public partial class MyOntologyDataContext : RdfDataContext
+    public partial class musicDataContext : RdfDataContext
     {
-        public MyOntologyDataContext(TripleStore store) : base(store)
+        public musicDataContext(TripleStore store) : base(store)
         {
         }
-        public MyOntologyDataContext(string store) : base(new TripleStore(store))
+        public musicDataContext(string store) : base(new TripleStore(store))
         {
         }
 
@@ -658,7 +659,7 @@ namespace Some.Namespace
 
     }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Record")]
+[OwlResource(OntologyName="music", RelativeUriReference="Record")]
 public partial class Record : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -668,12 +669,12 @@ public partial class Record : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "has_track")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "has_track")]
 public string has_trackUri { get; set; }
 
 private EntityRef<Track> _has_track { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "has_track")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "has_track")]
 public Track has_track
 {
     get
@@ -682,19 +683,19 @@ public Track has_track
             return _has_track.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _has_track = new EntityRef<Track>(from x in ctx.Tracks where x.HasInstanceUri(has_trackUri) select x);
             return _has_track.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "track")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "track")]
 public string trackUri { get; set; }
 
 private EntityRef<Track> _track { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "track")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "track")]
 public Track track
 {
     get
@@ -703,7 +704,7 @@ public Track track
             return _track.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _track = new EntityRef<Track>(from x in ctx.Tracks where x.HasInstanceUri(trackUri) select x);
             return _track.Entity;
         }
@@ -714,15 +715,15 @@ public Track track
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Track")]
+[OwlResource(OntologyName="music", RelativeUriReference="Track")]
 public partial class Track : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "trackNum")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "trackNum")]
   public string trackNum {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "track_number")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "track_number")]
   public int track_number {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "olga")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "olga")]
   public Document olga {get;set;} // 
 
 #endregion
@@ -734,15 +735,15 @@ public partial class Track : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="MusicArtist")]
+[OwlResource(OntologyName="music", RelativeUriReference="MusicArtist")]
 public partial class MusicArtist : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "fanpage")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "fanpage")]
   public Document fanpage {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "biography")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "biography")]
   public Document biography {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "discography")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "discography")]
   public Document discography {get;set;} // 
 
 #endregion
@@ -751,12 +752,12 @@ public partial class MusicArtist : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "remixed")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "remixed")]
 public string remixedUri { get; set; }
 
 private EntityRef<Signal> _remixed { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "remixed")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "remixed")]
 public Signal remixed
 {
     get
@@ -765,19 +766,19 @@ public Signal remixed
             return _remixed.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _remixed = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(remixedUri) select x);
             return _remixed.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampled")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampled")]
 public string sampledUri { get; set; }
 
 private EntityRef<Signal> _sampled { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampled")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampled")]
 public Signal sampled
 {
     get
@@ -786,19 +787,19 @@ public Signal sampled
             return _sampled.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _sampled = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(sampledUri) select x);
             return _sampled.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "compiled")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "compiled")]
 public string compiledUri { get; set; }
 
 private EntityRef<MusicalManifestation> _compiled { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "compiled")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "compiled")]
 public MusicalManifestation compiled
 {
     get
@@ -807,19 +808,19 @@ public MusicalManifestation compiled
             return _compiled.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _compiled = new EntityRef<MusicalManifestation>(from x in ctx.MusicalManifestations where x.HasInstanceUri(compiledUri) select x);
             return _compiled.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "djmixed")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "djmixed")]
 public string djmixedUri { get; set; }
 
 private EntityRef<Signal> _djmixed { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "djmixed")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "djmixed")]
 public Signal djmixed
 {
     get
@@ -828,19 +829,19 @@ public Signal djmixed
             return _djmixed.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _djmixed = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(djmixedUri) select x);
             return _djmixed.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "supporting_musician")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "supporting_musician")]
 public string supporting_musicianUri { get; set; }
 
 private EntityRef<MusicArtist> _supporting_musician { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "supporting_musician")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "supporting_musician")]
 public MusicArtist supporting_musician
 {
     get
@@ -849,7 +850,7 @@ public MusicArtist supporting_musician
             return _supporting_musician.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _supporting_musician = new EntityRef<MusicArtist>(from x in ctx.MusicArtists where x.HasInstanceUri(supporting_musicianUri) select x);
             return _supporting_musician.Entity;
         }
@@ -860,7 +861,7 @@ public MusicArtist supporting_musician
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="SoloMusicArtist")]
+[OwlResource(OntologyName="music", RelativeUriReference="SoloMusicArtist")]
 public partial class SoloMusicArtist : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -873,7 +874,7 @@ public partial class SoloMusicArtist : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="MusicGroup")]
+[OwlResource(OntologyName="music", RelativeUriReference="MusicGroup")]
 public partial class MusicGroup : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -886,7 +887,7 @@ public partial class MusicGroup : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="CorporateBody")]
+[OwlResource(OntologyName="music", RelativeUriReference="CorporateBody")]
 public partial class CorporateBody : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -899,7 +900,7 @@ public partial class CorporateBody : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Label")]
+[OwlResource(OntologyName="music", RelativeUriReference="Label")]
 public partial class Label : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -912,11 +913,11 @@ public partial class Label : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="MusicalWork")]
+[OwlResource(OntologyName="music", RelativeUriReference="MusicalWork")]
 public partial class MusicalWork : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "opus")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "opus")]
   public string opus {get;set;} // 
 
 #endregion
@@ -925,12 +926,12 @@ public partial class MusicalWork : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "usedInPerformance")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "usedInPerformance")]
 public string usedInPerformanceUri { get; set; }
 
 private EntityRef<Performance> _usedInPerformance { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "usedInPerformance")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "usedInPerformance")]
 public Performance usedInPerformance
 {
     get
@@ -939,19 +940,19 @@ public Performance usedInPerformance
             return _usedInPerformance.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _usedInPerformance = new EntityRef<Performance>(from x in ctx.Performances where x.HasInstanceUri(usedInPerformanceUri) select x);
             return _usedInPerformance.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "productOfComposition")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "productOfComposition")]
 public string productOfCompositionUri { get; set; }
 
 private EntityRef<Composition> _productOfComposition { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "productOfComposition")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "productOfComposition")]
 public Composition productOfComposition
 {
     get
@@ -960,19 +961,19 @@ public Composition productOfComposition
             return _productOfComposition.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _productOfComposition = new EntityRef<Composition>(from x in ctx.Compositions where x.HasInstanceUri(productOfCompositionUri) select x);
             return _productOfComposition.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "composed_in")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "composed_in")]
 public string composed_inUri { get; set; }
 
 private EntityRef<Composition> _composed_in { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "composed_in")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "composed_in")]
 public Composition composed_in
 {
     get
@@ -981,19 +982,19 @@ public Composition composed_in
             return _composed_in.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _composed_in = new EntityRef<Composition>(from x in ctx.Compositions where x.HasInstanceUri(composed_inUri) select x);
             return _composed_in.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "arranged_in")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "arranged_in")]
 public string arranged_inUri { get; set; }
 
 private EntityRef<Arrangement> _arranged_in { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "arranged_in")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "arranged_in")]
 public Arrangement arranged_in
 {
     get
@@ -1002,19 +1003,19 @@ public Arrangement arranged_in
             return _arranged_in.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _arranged_in = new EntityRef<Arrangement>(from x in ctx.Arrangements where x.HasInstanceUri(arranged_inUri) select x);
             return _arranged_in.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "movement")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "movement")]
 public string movementUri { get; set; }
 
 private EntityRef<Movement> _movement { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "movement")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "movement")]
 public Movement movement
 {
     get
@@ -1023,7 +1024,7 @@ public Movement movement
             return _movement.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _movement = new EntityRef<Movement>(from x in ctx.Movements where x.HasInstanceUri(movementUri) select x);
             return _movement.Entity;
         }
@@ -1034,13 +1035,13 @@ public Movement movement
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Movement")]
+[OwlResource(OntologyName="music", RelativeUriReference="Movement")]
 public partial class Movement : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "movementNum")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "movementNum")]
   public string movementNum {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "movement_number")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "movement_number")]
   public int movement_number {get;set;} // 
 
 #endregion
@@ -1052,7 +1053,7 @@ public partial class Movement : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="MusicalExpression")]
+[OwlResource(OntologyName="music", RelativeUriReference="MusicalExpression")]
 public partial class MusicalExpression : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1062,12 +1063,12 @@ public partial class MusicalExpression : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "hasManifestation")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "hasManifestation")]
 public string hasManifestationUri { get; set; }
 
 private EntityRef<MusicalManifestation> _hasManifestation { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "hasManifestation")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "hasManifestation")]
 public MusicalManifestation hasManifestation
 {
     get
@@ -1076,19 +1077,19 @@ public MusicalManifestation hasManifestation
             return _hasManifestation.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _hasManifestation = new EntityRef<MusicalManifestation>(from x in ctx.MusicalManifestations where x.HasInstanceUri(hasManifestationUri) select x);
             return _hasManifestation.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "manifestation")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "manifestation")]
 public string manifestationUri { get; set; }
 
 private EntityRef<MusicalManifestation> _manifestation { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "manifestation")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "manifestation")]
 public MusicalManifestation manifestation
 {
     get
@@ -1097,7 +1098,7 @@ public MusicalManifestation manifestation
             return _manifestation.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _manifestation = new EntityRef<MusicalManifestation>(from x in ctx.MusicalManifestations where x.HasInstanceUri(manifestationUri) select x);
             return _manifestation.Entity;
         }
@@ -1108,7 +1109,7 @@ public MusicalManifestation manifestation
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Sound")]
+[OwlResource(OntologyName="music", RelativeUriReference="Sound")]
 public partial class Sound : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1118,12 +1119,12 @@ public partial class Sound : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "usedInRecording")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "usedInRecording")]
 public string usedInRecordingUri { get; set; }
 
 private EntityRef<Recording> _usedInRecording { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "usedInRecording")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "usedInRecording")]
 public Recording usedInRecording
 {
     get
@@ -1132,19 +1133,19 @@ public Recording usedInRecording
             return _usedInRecording.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _usedInRecording = new EntityRef<Recording>(from x in ctx.Recordings where x.HasInstanceUri(usedInRecordingUri) select x);
             return _usedInRecording.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "recorded_in")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "recorded_in")]
 public string recorded_inUri { get; set; }
 
 private EntityRef<Recording> _recorded_in { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "recorded_in")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "recorded_in")]
 public Recording recorded_in
 {
     get
@@ -1153,7 +1154,7 @@ public Recording recorded_in
             return _recorded_in.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _recorded_in = new EntityRef<Recording>(from x in ctx.Recordings where x.HasInstanceUri(recorded_inUri) select x);
             return _recorded_in.Entity;
         }
@@ -1164,19 +1165,19 @@ public Recording recorded_in
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Signal")]
+[OwlResource(OntologyName="music", RelativeUriReference="Signal")]
 public partial class Signal : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "channels")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "channels")]
   public int channels {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "trmid")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "trmid")]
   public string trmid {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "puid")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "puid")]
   public string puid {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "signalTime")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "signalTime")]
   public TemporalEntity signalTime {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "time")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "time")]
   public TemporalEntity time {get;set;} // 
 
 #endregion
@@ -1185,12 +1186,12 @@ public partial class Signal : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "records")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "records")]
 public string recordsUri { get; set; }
 
 private EntityRef<Performance> _records { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "records")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "records")]
 public Performance records
 {
     get
@@ -1199,19 +1200,19 @@ public Performance records
             return _records.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _records = new EntityRef<Performance>(from x in ctx.Performances where x.HasInstanceUri(recordsUri) select x);
             return _records.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "remixer")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "remixer")]
 public string remixerUri { get; set; }
 
 private EntityRef<MusicArtist> _remixer { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "remixer")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "remixer")]
 public MusicArtist remixer
 {
     get
@@ -1220,19 +1221,19 @@ public MusicArtist remixer
             return _remixer.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _remixer = new EntityRef<MusicArtist>(from x in ctx.MusicArtists where x.HasInstanceUri(remixerUri) select x);
             return _remixer.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampler")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampler")]
 public string samplerUri { get; set; }
 
 private EntityRef<MusicArtist> _sampler { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampler")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampler")]
 public MusicArtist sampler
 {
     get
@@ -1241,19 +1242,19 @@ public MusicArtist sampler
             return _sampler.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _sampler = new EntityRef<MusicArtist>(from x in ctx.MusicArtists where x.HasInstanceUri(samplerUri) select x);
             return _sampler.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "contains_sample_from")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "contains_sample_from")]
 public string contains_sample_fromUri { get; set; }
 
 private EntityRef<Signal> _contains_sample_from { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "contains_sample_from")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "contains_sample_from")]
 public Signal contains_sample_from
 {
     get
@@ -1262,19 +1263,19 @@ public Signal contains_sample_from
             return _contains_sample_from.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _contains_sample_from = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(contains_sample_fromUri) select x);
             return _contains_sample_from.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "djmixed_by")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "djmixed_by")]
 public string djmixed_byUri { get; set; }
 
 private EntityRef<MusicArtist> _djmixed_by { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "djmixed_by")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "djmixed_by")]
 public MusicArtist djmixed_by
 {
     get
@@ -1283,19 +1284,19 @@ public MusicArtist djmixed_by
             return _djmixed_by.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _djmixed_by = new EntityRef<MusicArtist>(from x in ctx.MusicArtists where x.HasInstanceUri(djmixed_byUri) select x);
             return _djmixed_by.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "remix_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "remix_of")]
 public string remix_ofUri { get; set; }
 
 private EntityRef<Signal> _remix_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "remix_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "remix_of")]
 public Signal remix_of
 {
     get
@@ -1304,19 +1305,19 @@ public Signal remix_of
             return _remix_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _remix_of = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(remix_ofUri) select x);
             return _remix_of.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "medley_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "medley_of")]
 public string medley_ofUri { get; set; }
 
 private EntityRef<Signal> _medley_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "medley_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "medley_of")]
 public Signal medley_of
 {
     get
@@ -1325,19 +1326,19 @@ public Signal medley_of
             return _medley_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _medley_of = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(medley_ofUri) select x);
             return _medley_of.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "djmix_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "djmix_of")]
 public string djmix_ofUri { get; set; }
 
 private EntityRef<Signal> _djmix_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "djmix_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "djmix_of")]
 public Signal djmix_of
 {
     get
@@ -1346,19 +1347,19 @@ public Signal djmix_of
             return _djmix_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _djmix_of = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(djmix_ofUri) select x);
             return _djmix_of.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "remaster_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "remaster_of")]
 public string remaster_ofUri { get; set; }
 
 private EntityRef<Signal> _remaster_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "remaster_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "remaster_of")]
 public Signal remaster_of
 {
     get
@@ -1367,19 +1368,19 @@ public Signal remaster_of
             return _remaster_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _remaster_of = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(remaster_ofUri) select x);
             return _remaster_of.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "mashup_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "mashup_of")]
 public string mashup_ofUri { get; set; }
 
 private EntityRef<Signal> _mashup_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "mashup_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "mashup_of")]
 public Signal mashup_of
 {
     get
@@ -1388,7 +1389,7 @@ public Signal mashup_of
             return _mashup_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _mashup_of = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(mashup_ofUri) select x);
             return _mashup_of.Entity;
         }
@@ -1399,7 +1400,7 @@ public Signal mashup_of
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="AnalogSignal")]
+[OwlResource(OntologyName="music", RelativeUriReference="AnalogSignal")]
 public partial class AnalogSignal : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1409,12 +1410,12 @@ public partial class AnalogSignal : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampled_version")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampled_version")]
 public string sampled_versionUri { get; set; }
 
 private EntityRef<DigitalSignal> _sampled_version { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampled_version")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampled_version")]
 public DigitalSignal sampled_version
 {
     get
@@ -1423,7 +1424,7 @@ public DigitalSignal sampled_version
             return _sampled_version.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _sampled_version = new EntityRef<DigitalSignal>(from x in ctx.DigitalSignals where x.HasInstanceUri(sampled_versionUri) select x);
             return _sampled_version.Entity;
         }
@@ -1434,15 +1435,15 @@ public DigitalSignal sampled_version
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="DigitalSignal")]
+[OwlResource(OntologyName="music", RelativeUriReference="DigitalSignal")]
 public partial class DigitalSignal : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampleRate")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "sampleRate")]
   public string sampleRate {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "bitsPerSample")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "bitsPerSample")]
   public int bitsPerSample {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sample_rate")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "sample_rate")]
   public float sample_rate {get;set;} // 
 
 #endregion
@@ -1451,12 +1452,12 @@ public partial class DigitalSignal : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampledVersionOf")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampledVersionOf")]
 public string sampledVersionOfUri { get; set; }
 
 private EntityRef<AnalogSignal> _sampledVersionOf { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampledVersionOf")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampledVersionOf")]
 public AnalogSignal sampledVersionOf
 {
     get
@@ -1465,19 +1466,19 @@ public AnalogSignal sampledVersionOf
             return _sampledVersionOf.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _sampledVersionOf = new EntityRef<AnalogSignal>(from x in ctx.AnalogSignals where x.HasInstanceUri(sampledVersionOfUri) select x);
             return _sampledVersionOf.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampled_version_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampled_version_of")]
 public string sampled_version_ofUri { get; set; }
 
 private EntityRef<AnalogSignal> _sampled_version_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "sampled_version_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "sampled_version_of")]
 public AnalogSignal sampled_version_of
 {
     get
@@ -1486,7 +1487,7 @@ public AnalogSignal sampled_version_of
             return _sampled_version_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _sampled_version_of = new EntityRef<AnalogSignal>(from x in ctx.AnalogSignals where x.HasInstanceUri(sampled_version_ofUri) select x);
             return _sampled_version_of.Entity;
         }
@@ -1497,7 +1498,7 @@ public AnalogSignal sampled_version_of
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Score")]
+[OwlResource(OntologyName="music", RelativeUriReference="Score")]
 public partial class Score : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1510,7 +1511,7 @@ public partial class Score : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Lyrics")]
+[OwlResource(OntologyName="music", RelativeUriReference="Lyrics")]
 public partial class Lyrics : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1523,7 +1524,7 @@ public partial class Lyrics : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Libretto")]
+[OwlResource(OntologyName="music", RelativeUriReference="Libretto")]
 public partial class Libretto : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1536,15 +1537,15 @@ public partial class Libretto : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Performance")]
+[OwlResource(OntologyName="music", RelativeUriReference="Performance")]
 public partial class Performance : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "performer")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "performer")]
   public Agent performer {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "conductor")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "conductor")]
   public Agent conductor {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "listener")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "listener")]
   public Agent listener {get;set;} // 
 
 #endregion
@@ -1553,12 +1554,12 @@ public partial class Performance : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "usesWork")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "usesWork")]
 public string usesWorkUri { get; set; }
 
 private EntityRef<MusicalWork> _usesWork { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "usesWork")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "usesWork")]
 public MusicalWork usesWork
 {
     get
@@ -1567,19 +1568,19 @@ public MusicalWork usesWork
             return _usesWork.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _usesWork = new EntityRef<MusicalWork>(from x in ctx.MusicalWorks where x.HasInstanceUri(usesWorkUri) select x);
             return _usesWork.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "producesSound")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "producesSound")]
 public string producesSoundUri { get; set; }
 
 private EntityRef<Sound> _producesSound { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "producesSound")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "producesSound")]
 public Sound producesSound
 {
     get
@@ -1588,19 +1589,19 @@ public Sound producesSound
             return _producesSound.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _producesSound = new EntityRef<Sound>(from x in ctx.Sounds where x.HasInstanceUri(producesSoundUri) select x);
             return _producesSound.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "recordedAs")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "recordedAs")]
 public string recordedAsUri { get; set; }
 
 private EntityRef<Signal> _recordedAs { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "recordedAs")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "recordedAs")]
 public Signal recordedAs
 {
     get
@@ -1609,19 +1610,19 @@ public Signal recordedAs
             return _recordedAs.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _recordedAs = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(recordedAsUri) select x);
             return _recordedAs.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "produced_sound")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "produced_sound")]
 public string produced_soundUri { get; set; }
 
 private EntityRef<Sound> _produced_sound { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "produced_sound")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "produced_sound")]
 public Sound produced_sound
 {
     get
@@ -1630,19 +1631,19 @@ public Sound produced_sound
             return _produced_sound.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _produced_sound = new EntityRef<Sound>(from x in ctx.Sounds where x.HasInstanceUri(produced_soundUri) select x);
             return _produced_sound.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "recorded_as")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "recorded_as")]
 public string recorded_asUri { get; set; }
 
 private EntityRef<Signal> _recorded_as { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "recorded_as")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "recorded_as")]
 public Signal recorded_as
 {
     get
@@ -1651,19 +1652,19 @@ public Signal recorded_as
             return _recorded_as.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _recorded_as = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(recorded_asUri) select x);
             return _recorded_as.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "instrument")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "instrument")]
 public string instrumentUri { get; set; }
 
 private EntityRef<Instrument> _instrument { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "instrument")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "instrument")]
 public Instrument instrument
 {
     get
@@ -1672,7 +1673,7 @@ public Instrument instrument
             return _instrument.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _instrument = new EntityRef<Instrument>(from x in ctx.Instruments where x.HasInstanceUri(instrumentUri) select x);
             return _instrument.Entity;
         }
@@ -1683,7 +1684,7 @@ public Instrument instrument
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Performer")]
+[OwlResource(OntologyName="music", RelativeUriReference="Performer")]
 public partial class Performer : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1696,7 +1697,7 @@ public partial class Performer : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="SoundEngineer")]
+[OwlResource(OntologyName="music", RelativeUriReference="SoundEngineer")]
 public partial class SoundEngineer : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1709,7 +1710,7 @@ public partial class SoundEngineer : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Listener")]
+[OwlResource(OntologyName="music", RelativeUriReference="Listener")]
 public partial class Listener : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1722,7 +1723,7 @@ public partial class Listener : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Conductor")]
+[OwlResource(OntologyName="music", RelativeUriReference="Conductor")]
 public partial class Conductor : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1735,7 +1736,7 @@ public partial class Conductor : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Composer")]
+[OwlResource(OntologyName="music", RelativeUriReference="Composer")]
 public partial class Composer : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1748,11 +1749,11 @@ public partial class Composer : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Composition")]
+[OwlResource(OntologyName="music", RelativeUriReference="Composition")]
 public partial class Composition : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "composer")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "composer")]
   public Agent composer {get;set;} // 
 
 #endregion
@@ -1761,12 +1762,12 @@ public partial class Composition : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "producesWork")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "producesWork")]
 public string producesWorkUri { get; set; }
 
 private EntityRef<MusicalWork> _producesWork { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "producesWork")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "producesWork")]
 public MusicalWork producesWork
 {
     get
@@ -1775,19 +1776,19 @@ public MusicalWork producesWork
             return _producesWork.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _producesWork = new EntityRef<MusicalWork>(from x in ctx.MusicalWorks where x.HasInstanceUri(producesWorkUri) select x);
             return _producesWork.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "produced_work")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "produced_work")]
 public string produced_workUri { get; set; }
 
 private EntityRef<MusicalWork> _produced_work { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "produced_work")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "produced_work")]
 public MusicalWork produced_work
 {
     get
@@ -1796,7 +1797,7 @@ public MusicalWork produced_work
             return _produced_work.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _produced_work = new EntityRef<MusicalWork>(from x in ctx.MusicalWorks where x.HasInstanceUri(produced_workUri) select x);
             return _produced_work.Entity;
         }
@@ -1807,7 +1808,7 @@ public MusicalWork produced_work
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Arranger")]
+[OwlResource(OntologyName="music", RelativeUriReference="Arranger")]
 public partial class Arranger : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1820,7 +1821,7 @@ public partial class Arranger : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Arrangement")]
+[OwlResource(OntologyName="music", RelativeUriReference="Arrangement")]
 public partial class Arrangement : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1830,12 +1831,12 @@ public partial class Arrangement : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "produced_score")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "produced_score")]
 public string produced_scoreUri { get; set; }
 
 private EntityRef<Score> _produced_score { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "produced_score")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "produced_score")]
 public Score produced_score
 {
     get
@@ -1844,19 +1845,19 @@ public Score produced_score
             return _produced_score.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _produced_score = new EntityRef<Score>(from x in ctx.Scores where x.HasInstanceUri(produced_scoreUri) select x);
             return _produced_score.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "arrangement_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "arrangement_of")]
 public string arrangement_ofUri { get; set; }
 
 private EntityRef<MusicalWork> _arrangement_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "arrangement_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "arrangement_of")]
 public MusicalWork arrangement_of
 {
     get
@@ -1865,7 +1866,7 @@ public MusicalWork arrangement_of
             return _arrangement_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _arrangement_of = new EntityRef<MusicalWork>(from x in ctx.MusicalWorks where x.HasInstanceUri(arrangement_ofUri) select x);
             return _arrangement_of.Entity;
         }
@@ -1876,7 +1877,7 @@ public MusicalWork arrangement_of
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Recording")]
+[OwlResource(OntologyName="music", RelativeUriReference="Recording")]
 public partial class Recording : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1886,12 +1887,12 @@ public partial class Recording : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "usesSound")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "usesSound")]
 public string usesSoundUri { get; set; }
 
 private EntityRef<Sound> _usesSound { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "usesSound")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "usesSound")]
 public Sound usesSound
 {
     get
@@ -1900,19 +1901,19 @@ public Sound usesSound
             return _usesSound.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _usesSound = new EntityRef<Sound>(from x in ctx.Sounds where x.HasInstanceUri(usesSoundUri) select x);
             return _usesSound.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "producesSignal")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "producesSignal")]
 public string producesSignalUri { get; set; }
 
 private EntityRef<Signal> _producesSignal { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "producesSignal")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "producesSignal")]
 public Signal producesSignal
 {
     get
@@ -1921,19 +1922,19 @@ public Signal producesSignal
             return _producesSignal.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _producesSignal = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(producesSignalUri) select x);
             return _producesSignal.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "recording_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "recording_of")]
 public string recording_ofUri { get; set; }
 
 private EntityRef<Sound> _recording_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "recording_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "recording_of")]
 public Sound recording_of
 {
     get
@@ -1942,19 +1943,19 @@ public Sound recording_of
             return _recording_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _recording_of = new EntityRef<Sound>(from x in ctx.Sounds where x.HasInstanceUri(recording_ofUri) select x);
             return _recording_of.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "produced_signal")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "produced_signal")]
 public string produced_signalUri { get; set; }
 
 private EntityRef<Signal> _produced_signal { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "produced_signal")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "produced_signal")]
 public Signal produced_signal
 {
     get
@@ -1963,7 +1964,7 @@ public Signal produced_signal
             return _produced_signal.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _produced_signal = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(produced_signalUri) select x);
             return _produced_signal.Entity;
         }
@@ -1974,7 +1975,7 @@ public Signal produced_signal
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Instrumentation")]
+[OwlResource(OntologyName="music", RelativeUriReference="Instrumentation")]
 public partial class Instrumentation : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -1987,7 +1988,7 @@ public partial class Instrumentation : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Orchestration")]
+[OwlResource(OntologyName="music", RelativeUriReference="Orchestration")]
 public partial class Orchestration : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2000,7 +2001,7 @@ public partial class Orchestration : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="PublishedScore")]
+[OwlResource(OntologyName="music", RelativeUriReference="PublishedScore")]
 public partial class PublishedScore : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2013,21 +2014,21 @@ public partial class PublishedScore : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="MusicalManifestation")]
+[OwlResource(OntologyName="music", RelativeUriReference="MusicalManifestation")]
 public partial class MusicalManifestation : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "encoding")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "encoding")]
   public string encoding {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "producer")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "producer")]
   public Agent producer {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "publishingLocation")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "publishingLocation")]
   public SpatialThing publishingLocation {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "availableAs")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "availableAs")]
   public Item availableAs {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "publisher")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "publisher")]
   public Agent publisher {get;set;} // 
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "publishing_location")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "publishing_location")]
   public SpatialThing publishing_location {get;set;} // 
 
 #endregion
@@ -2036,12 +2037,12 @@ public partial class MusicalManifestation : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "compiler")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "compiler")]
 public string compilerUri { get; set; }
 
 private EntityRef<MusicArtist> _compiler { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "compiler")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "compiler")]
 public MusicArtist compiler
 {
     get
@@ -2050,19 +2051,19 @@ public MusicArtist compiler
             return _compiler.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _compiler = new EntityRef<MusicArtist>(from x in ctx.MusicArtists where x.HasInstanceUri(compilerUri) select x);
             return _compiler.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "compilation_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "compilation_of")]
 public string compilation_ofUri { get; set; }
 
 private EntityRef<Signal> _compilation_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "compilation_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "compilation_of")]
 public Signal compilation_of
 {
     get
@@ -2071,19 +2072,19 @@ public Signal compilation_of
             return _compilation_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _compilation_of = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(compilation_ofUri) select x);
             return _compilation_of.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "other_release_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "other_release_of")]
 public string other_release_ofUri { get; set; }
 
 private EntityRef<MusicalManifestation> _other_release_of { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "other_release_of")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "other_release_of")]
 public MusicalManifestation other_release_of
 {
     get
@@ -2092,19 +2093,19 @@ public MusicalManifestation other_release_of
             return _other_release_of.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _other_release_of = new EntityRef<MusicalManifestation>(from x in ctx.MusicalManifestations where x.HasInstanceUri(other_release_ofUri) select x);
             return _other_release_of.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "tribute_to")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "tribute_to")]
 public string tribute_toUri { get; set; }
 
 private EntityRef<MusicArtist> _tribute_to { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "tribute_to")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "tribute_to")]
 public MusicArtist tribute_to
 {
     get
@@ -2113,19 +2114,19 @@ public MusicArtist tribute_to
             return _tribute_to.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _tribute_to = new EntityRef<MusicArtist>(from x in ctx.MusicArtists where x.HasInstanceUri(tribute_toUri) select x);
             return _tribute_to.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "releaseType")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "releaseType")]
 public string releaseTypeUri { get; set; }
 
 private EntityRef<ReleaseType> _releaseType { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "releaseType")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "releaseType")]
 public ReleaseType releaseType
 {
     get
@@ -2134,19 +2135,19 @@ public ReleaseType releaseType
             return _releaseType.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _releaseType = new EntityRef<ReleaseType>(from x in ctx.ReleaseTypes where x.HasInstanceUri(releaseTypeUri) select x);
             return _releaseType.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "releaseStatus")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "releaseStatus")]
 public string releaseStatusUri { get; set; }
 
 private EntityRef<ReleaseStatus> _releaseStatus { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "releaseStatus")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "releaseStatus")]
 public ReleaseStatus releaseStatus
 {
     get
@@ -2155,19 +2156,19 @@ public ReleaseStatus releaseStatus
             return _releaseStatus.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _releaseStatus = new EntityRef<ReleaseStatus>(from x in ctx.ReleaseStatuss where x.HasInstanceUri(releaseStatusUri) select x);
             return _releaseStatus.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "available_as")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "available_as")]
 public string available_asUri { get; set; }
 
 private EntityRef<MusicalItem> _available_as { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "available_as")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "available_as")]
 public MusicalItem available_as
 {
     get
@@ -2176,19 +2177,19 @@ public MusicalItem available_as
             return _available_as.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _available_as = new EntityRef<MusicalItem>(from x in ctx.MusicalItems where x.HasInstanceUri(available_asUri) select x);
             return _available_as.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "item")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "item")]
 public string itemUri { get; set; }
 
 private EntityRef<MusicalItem> _item { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "item")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "item")]
 public MusicalItem item
 {
     get
@@ -2197,19 +2198,19 @@ public MusicalItem item
             return _item.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _item = new EntityRef<MusicalItem>(from x in ctx.MusicalItems where x.HasInstanceUri(itemUri) select x);
             return _item.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "preview")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "preview")]
 public string previewUri { get; set; }
 
 private EntityRef<MusicalItem> _preview { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "preview")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "preview")]
 public MusicalItem preview
 {
     get
@@ -2218,19 +2219,19 @@ public MusicalItem preview
             return _preview.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _preview = new EntityRef<MusicalItem>(from x in ctx.MusicalItems where x.HasInstanceUri(previewUri) select x);
             return _preview.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "release_status")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "release_status")]
 public string release_statusUri { get; set; }
 
 private EntityRef<ReleaseStatus> _release_status { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "release_status")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "release_status")]
 public ReleaseStatus release_status
 {
     get
@@ -2239,19 +2240,19 @@ public ReleaseStatus release_status
             return _release_status.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _release_status = new EntityRef<ReleaseStatus>(from x in ctx.ReleaseStatuss where x.HasInstanceUri(release_statusUri) select x);
             return _release_status.Entity;
         }
         return null;
     }
 }
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "release_type")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "release_type")]
 public string release_typeUri { get; set; }
 
 private EntityRef<ReleaseType> _release_type { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "release_type")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "release_type")]
 public ReleaseType release_type
 {
     get
@@ -2260,7 +2261,7 @@ public ReleaseType release_type
             return _release_type.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _release_type = new EntityRef<ReleaseType>(from x in ctx.ReleaseTypes where x.HasInstanceUri(release_typeUri) select x);
             return _release_type.Entity;
         }
@@ -2271,7 +2272,7 @@ public ReleaseType release_type
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="PublishedLibretto")]
+[OwlResource(OntologyName="music", RelativeUriReference="PublishedLibretto")]
 public partial class PublishedLibretto : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2284,7 +2285,7 @@ public partial class PublishedLibretto : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="PublishedLyrics")]
+[OwlResource(OntologyName="music", RelativeUriReference="PublishedLyrics")]
 public partial class PublishedLyrics : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2297,7 +2298,7 @@ public partial class PublishedLyrics : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Festival")]
+[OwlResource(OntologyName="music", RelativeUriReference="Festival")]
 public partial class Festival : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2310,7 +2311,7 @@ public partial class Festival : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Show")]
+[OwlResource(OntologyName="music", RelativeUriReference="Show")]
 public partial class Show : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2323,7 +2324,7 @@ public partial class Show : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="ReleaseType")]
+[OwlResource(OntologyName="music", RelativeUriReference="ReleaseType")]
 public partial class ReleaseType : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2336,7 +2337,7 @@ public partial class ReleaseType : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="MusicalItem")]
+[OwlResource(OntologyName="music", RelativeUriReference="MusicalItem")]
 public partial class MusicalItem : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2346,12 +2347,12 @@ public partial class MusicalItem : OwlInstanceSupertype
 #endregion
 
 #region Object properties
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "encodes")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "encodes")]
 public string encodesUri { get; set; }
 
 private EntityRef<Signal> _encodes { get; set; }
 
-[OwlResource(OntologyName = "MyOntology", RelativeUriReference = "encodes")]
+[OwlResource(OntologyName = "music", RelativeUriReference = "encodes")]
 public Signal encodes
 {
     get
@@ -2360,7 +2361,7 @@ public Signal encodes
             return _encodes.Entity;
         if (DataContext != null)
         {
-            var ctx = (MyOntologyDataContext)DataContext;
+            var ctx = (musicDataContext)DataContext;
             _encodes = new EntityRef<Signal>(from x in ctx.Signals where x.HasInstanceUri(encodesUri) select x);
             return _encodes.Entity;
         }
@@ -2371,7 +2372,7 @@ public Signal encodes
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Medium")]
+[OwlResource(OntologyName="music", RelativeUriReference="Medium")]
 public partial class Medium : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2384,7 +2385,7 @@ public partial class Medium : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Dat")]
+[OwlResource(OntologyName="music", RelativeUriReference="Dat")]
 public partial class Dat : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2397,7 +2398,7 @@ public partial class Dat : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Dcc")]
+[OwlResource(OntologyName="music", RelativeUriReference="Dcc")]
 public partial class Dcc : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2410,7 +2411,7 @@ public partial class Dcc : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Cd")]
+[OwlResource(OntologyName="music", RelativeUriReference="Cd")]
 public partial class Cd : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2423,7 +2424,7 @@ public partial class Cd : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Md")]
+[OwlResource(OntologyName="music", RelativeUriReference="Md")]
 public partial class Md : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2436,7 +2437,7 @@ public partial class Md : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Dvda")]
+[OwlResource(OntologyName="music", RelativeUriReference="Dvda")]
 public partial class Dvda : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2449,7 +2450,7 @@ public partial class Dvda : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Sacd")]
+[OwlResource(OntologyName="music", RelativeUriReference="Sacd")]
 public partial class Sacd : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2462,7 +2463,7 @@ public partial class Sacd : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Vinyl")]
+[OwlResource(OntologyName="music", RelativeUriReference="Vinyl")]
 public partial class Vinyl : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2475,7 +2476,7 @@ public partial class Vinyl : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Magnetictape")]
+[OwlResource(OntologyName="music", RelativeUriReference="Magnetictape")]
 public partial class Magnetictape : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2488,7 +2489,7 @@ public partial class Magnetictape : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Stream")]
+[OwlResource(OntologyName="music", RelativeUriReference="Stream")]
 public partial class Stream : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2501,7 +2502,7 @@ public partial class Stream : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="ReleaseStatus")]
+[OwlResource(OntologyName="music", RelativeUriReference="ReleaseStatus")]
 public partial class ReleaseStatus : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2514,7 +2515,7 @@ public partial class ReleaseStatus : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Instrument")]
+[OwlResource(OntologyName="music", RelativeUriReference="Instrument")]
 public partial class Instrument : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2527,7 +2528,7 @@ public partial class Instrument : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="String")]
+[OwlResource(OntologyName="music", RelativeUriReference="String")]
 public partial class String : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2540,7 +2541,7 @@ public partial class String : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Woodwind")]
+[OwlResource(OntologyName="music", RelativeUriReference="Woodwind")]
 public partial class Woodwind : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2553,7 +2554,7 @@ public partial class Woodwind : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Brass")]
+[OwlResource(OntologyName="music", RelativeUriReference="Brass")]
 public partial class Brass : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2566,7 +2567,7 @@ public partial class Brass : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Percussion")]
+[OwlResource(OntologyName="music", RelativeUriReference="Percussion")]
 public partial class Percussion : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2579,7 +2580,7 @@ public partial class Percussion : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Keyboard")]
+[OwlResource(OntologyName="music", RelativeUriReference="Keyboard")]
 public partial class Keyboard : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2592,7 +2593,7 @@ public partial class Keyboard : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Digital")]
+[OwlResource(OntologyName="music", RelativeUriReference="Digital")]
 public partial class Digital : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2605,7 +2606,7 @@ public partial class Digital : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Genre")]
+[OwlResource(OntologyName="music", RelativeUriReference="Genre")]
 public partial class Genre : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2618,7 +2619,7 @@ public partial class Genre : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Classical")]
+[OwlResource(OntologyName="music", RelativeUriReference="Classical")]
 public partial class Classical : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2631,7 +2632,7 @@ public partial class Classical : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Rock")]
+[OwlResource(OntologyName="music", RelativeUriReference="Rock")]
 public partial class Rock : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2644,7 +2645,7 @@ public partial class Rock : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Jazz")]
+[OwlResource(OntologyName="music", RelativeUriReference="Jazz")]
 public partial class Jazz : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2657,7 +2658,7 @@ public partial class Jazz : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="World")]
+[OwlResource(OntologyName="music", RelativeUriReference="World")]
 public partial class World : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2670,7 +2671,7 @@ public partial class World : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Hiphop")]
+[OwlResource(OntologyName="music", RelativeUriReference="Hiphop")]
 public partial class Hiphop : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2683,7 +2684,7 @@ public partial class Hiphop : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Country")]
+[OwlResource(OntologyName="music", RelativeUriReference="Country")]
 public partial class Country : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2696,7 +2697,7 @@ public partial class Country : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Blues")]
+[OwlResource(OntologyName="music", RelativeUriReference="Blues")]
 public partial class Blues : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2709,7 +2710,7 @@ public partial class Blues : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Electronica")]
+[OwlResource(OntologyName="music", RelativeUriReference="Electronica")]
 public partial class Electronica : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2722,7 +2723,7 @@ public partial class Electronica : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Gospel")]
+[OwlResource(OntologyName="music", RelativeUriReference="Gospel")]
 public partial class Gospel : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2735,7 +2736,7 @@ public partial class Gospel : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Funk")]
+[OwlResource(OntologyName="music", RelativeUriReference="Funk")]
 public partial class Funk : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2748,7 +2749,7 @@ public partial class Funk : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Pop")]
+[OwlResource(OntologyName="music", RelativeUriReference="Pop")]
 public partial class Pop : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2761,7 +2762,7 @@ public partial class Pop : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Melodic")]
+[OwlResource(OntologyName="music", RelativeUriReference="Melodic")]
 public partial class Melodic : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2774,7 +2775,7 @@ public partial class Melodic : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Reggae")]
+[OwlResource(OntologyName="music", RelativeUriReference="Reggae")]
 public partial class Reggae : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2787,7 +2788,7 @@ public partial class Reggae : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="DAT")]
+[OwlResource(OntologyName="music", RelativeUriReference="DAT")]
 public partial class DAT : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2800,7 +2801,7 @@ public partial class DAT : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="DCC")]
+[OwlResource(OntologyName="music", RelativeUriReference="DCC")]
 public partial class DCC : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2813,7 +2814,7 @@ public partial class DCC : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="CD")]
+[OwlResource(OntologyName="music", RelativeUriReference="CD")]
 public partial class CD : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2826,7 +2827,7 @@ public partial class CD : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="MD")]
+[OwlResource(OntologyName="music", RelativeUriReference="MD")]
 public partial class MD : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2839,7 +2840,7 @@ public partial class MD : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="DVDA")]
+[OwlResource(OntologyName="music", RelativeUriReference="DVDA")]
 public partial class DVDA : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2852,7 +2853,7 @@ public partial class DVDA : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="SACD")]
+[OwlResource(OntologyName="music", RelativeUriReference="SACD")]
 public partial class SACD : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2865,7 +2866,7 @@ public partial class SACD : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="MagneticTape")]
+[OwlResource(OntologyName="music", RelativeUriReference="MagneticTape")]
 public partial class MagneticTape : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2878,7 +2879,7 @@ public partial class MagneticTape : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="Torrent")]
+[OwlResource(OntologyName="music", RelativeUriReference="Torrent")]
 public partial class Torrent : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2891,7 +2892,7 @@ public partial class Torrent : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="ED2K")]
+[OwlResource(OntologyName="music", RelativeUriReference="ED2K")]
 public partial class ED2K : OwlInstanceSupertype
 {
 #region Datatype properties
@@ -2904,11 +2905,11 @@ public partial class ED2K : OwlInstanceSupertype
 #endregion
 }
 
-[OwlResource(OntologyName="MyOntology", RelativeUriReference="AudioFile")]
+[OwlResource(OntologyName="music", RelativeUriReference="AudioFile")]
 public partial class AudioFile : OwlInstanceSupertype
 {
 #region Datatype properties
-  [OwlResource(OntologyName = "MyOntology", RelativeUriReference = "encoding")]
+  [OwlResource(OntologyName = "music", RelativeUriReference = "encoding")]
   public string encoding {get;set;} // 
 
 #endregion

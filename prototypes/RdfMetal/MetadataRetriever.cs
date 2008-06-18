@@ -14,16 +14,27 @@ namespace RdfMetal
         Options opts { get; set; }
         public IEnumerable<OntologyClass> GetClasses()
         {
-            return GetClassUris()
+            var r = GetClassUris()
                 .Distinct()
-                .Where(s => !string.IsNullOrEmpty(s))
-                .Map(u => GetClass(u));
+                .Where(s => !string.IsNullOrEmpty(s));
+            Dictionary<string, OntologyClass> x = new Dictionary<string, OntologyClass>();
+            foreach (var s in r)
+            {
+                if (!x.Keys.Contains(s))
+                {
+                    x[s] = GetClass(s);
+                }
+            }
+            var result = x.Values.ToList();
+            ProcessClassRelationships(result);
+            AnnotateClasses(result);
+            return result;
         }
 
         private IEnumerable<string> GetClassUris()
         {
             var source = new SparqlHttpSource(opts.endpoint);
-            var properties = new ClassQuerySink(opts.ignoreBnodes, opts.@namespace, new[] { "u" });
+            var properties = new ClassQuerySink(opts.ignoreBlankNodes, opts.ontologyNamespace, new[] { "u" });
             source.RunSparqlQuery(sqGetClasses, properties);
             return properties.bindings.Map(nvc => nvc["u"]);
         }
@@ -33,7 +44,7 @@ namespace RdfMetal
             var u = new Uri(classUri);
             string className = GetNameFromUri(classUri); Console.WriteLine(className);
             var source = new SparqlHttpSource(opts.endpoint);
-            var properties = new ClassQuerySink(opts.ignoreBnodes, null, new[] { "p", "r" });
+            var properties = new ClassQuerySink(opts.ignoreBlankNodes, null, new[] { "p", "r" });
 
             string sparqlQuery = string.Format(sqGetProperty, classUri);
             source.RunSparqlQuery(sparqlQuery, properties);
@@ -51,14 +62,16 @@ namespace RdfMetal
                                                            Uri = t.First.Trim(),
                                                            IsObjectProp = true,
                                                            Name = GetNameFromUri(t.First),
-                                                           Range = GetNameFromUri(t.Second)
+                                                           Range = GetNameFromUri(t.Second),
+                                                           RangeUri = t.Second
                                                        });
             IEnumerable<OntologyProperty> dps = q1.Map(t => new OntologyProperty
                                                        {
                                                            Uri = t.First.Trim(),
                                                            IsObjectProp = false,
                                                            Name = GetNameFromUri(t.First),
-                                                           Range = GetNameFromUri(t.Second)
+                                                           Range = GetNameFromUri(t.Second),
+                                                           RangeUri = t.Second
                                                        });
             var d = new Dictionary<string, OntologyProperty>();
             IEnumerable<OntologyProperty> props = ops.Union(dps).Map(p => TranslateType(p));
@@ -68,7 +81,7 @@ namespace RdfMetal
             }
             var result = new OntologyClass
                              {
-                                 Name = u.Segments[u.Segments.Length - 1],
+                                 Name = className,
                                  Uri = classUri,
                                  Properties = d.Values.Where(p => NamespaceMatches(p)).ToArray()
                              };
@@ -96,6 +109,7 @@ namespace RdfMetal
                            IsObjectProp = p.IsObjectProp,
                            Name = p.Name,
                            Range = newtype,
+                           RangeUri = p.RangeUri,
                            Uri = p.Uri
                        };
         }
@@ -112,11 +126,37 @@ namespace RdfMetal
 
         private bool NamespaceMatches(OntologyProperty p)
         {
-            if (string.IsNullOrEmpty(opts.@namespace))
+            if (string.IsNullOrEmpty(opts.ontologyNamespace))
             {
                 return true;
             }
-            return p.Uri.StartsWith(opts.@namespace);
+            return p.Uri.StartsWith(opts.ontologyNamespace);
+        }
+
+        public static void ProcessClassRelationships(IEnumerable<OntologyClass> classes)
+        {
+            foreach (var ontCls in classes)
+            {
+                ontCls.IncomingRelationships = classes
+                    .Map(c => c.OutgoingRelationships.AsEnumerable())
+                    .Flatten()
+                    .Where(p => p.Range == ontCls.Name)
+                    .ToArray();
+            }
+        }
+        private static void AnnotateClasses(IEnumerable<OntologyClass> classes)
+        {
+            foreach (var c in classes)
+            {
+                foreach (var p in c.Properties)
+                {
+                    if (classes.Any(x=>x.Uri == p.RangeUri))
+                    {
+                        p.IsObjectProp = true;
+                    }
+                    p.HostClass = c;
+                }
+            }
         }
 
         #region queries
