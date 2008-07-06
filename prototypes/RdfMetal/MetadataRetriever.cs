@@ -94,6 +94,9 @@ namespace RdfMetal
             string newtype;
             switch (p.Range)
             {
+                case "integer":
+                    newtype = "int";
+                    break;
                 case "Literal":
                     newtype = "string";
                     break;
@@ -165,11 +168,16 @@ namespace RdfMetal
             @"
 PREFIX owl:  <http://www.w3.org/2002/07/owl#>
 
-SELECT ?u
+SELECT DISTINCT ?u
 WHERE
-	{
-	?u a owl:Class .
-	}
+{
+    {?u a owl:Class .}
+UNION
+    {
+    ?u a ?x.
+    ?x a owl:Class.
+    }
+}
 ";
 
         private static string sqGetObjectProperty =
@@ -180,7 +188,6 @@ PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
 SELECT DISTINCT ?p ?r
 WHERE
 {{
-?p a owl:ObjectProperty .
 ?p rdfs:domain <{0}>.
 ?p rdfs:range ?r.
 }}";

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using LinqToRdf;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -34,3 +35,37 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+/*
+[assembly: Ontology(
+    BaseUri = "http://xmlns.com/foaf/0.1/",
+    Name = "foaf",
+    Prefix = "foaf",
+    UrlOfOntology = "http://xmlns.com/foaf/0.1/")]
+[assembly: Ontology(
+    BaseUri = "http://purl.org/vocab/frbr/core#",
+    Name = "frbr",
+    Prefix = "frbr",
+    UrlOfOntology = "http://purl.org/vocab/frbr/core#")]
+[assembly: Ontology(
+    BaseUri = "http://purl.org/ontology/mo/",
+    Name = "music",
+    Prefix = "music",
+    UrlOfOntology = "http://purl.org/ontology/mo/")]
+
+[assembly: Ontology(
+    BaseUri = "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    Name = "space",
+    Prefix = "space",
+    UrlOfOntology = "http://www.w3.org/2003/01/geo/wgs84_pos#")]
+[assembly: Ontology(
+    BaseUri = "http://www.w3.org/2006/time#",
+    Name = "time",
+    Prefix = "time",
+    UrlOfOntology = "http://www.w3.org/2006/time#")]
+*/
+[assembly: Ontology(
+    BaseUri = "http://aabs.purl.org/ontologies/2007/04/music#",
+    Name = "music",
+    Prefix = "music",
+    UrlOfOntology = "http://aabs.purl.org/ontologies/2007/04/music#")]
+
