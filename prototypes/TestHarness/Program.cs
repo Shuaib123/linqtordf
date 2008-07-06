@@ -1,44 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using LinqToRdf;
 using RdfMetal.Music;
 
 namespace TestHarness
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            var ctx = new musicDataContext("http://localhost/linqtordf/SparqlQuery.aspx");
-            var q = from a in ctx.Tracks
-					where a.title.StartsWith("Rory")
-                    select a;
-            foreach (Track track in q)
-            {
+	internal class Program
+	{
+		private static void Main(string[] args)
+		{
+			var ctx = new musicDataContext("http://localhost/linqtordf/SparqlQuery.aspx");
+			IQueryable<Track> q = from a in ctx.Tracks
+			                      where a.title.StartsWith("Rory")
+			                      select a;
+			foreach (Track track in q)
+			{
 				Debug.WriteLine(track.title);
-            }
-        	Console.ReadKey();
-        }
-    }
-}
-namespace RdfMetal.Time
-{
-    [OwlResource(OntologyName = "time", RelativeUriReference = "TemporalEntity")]
-    public partial class TemporalEntity : OwlInstanceSupertype
-    {
-        #region Datatype properties
-        #endregion
-
-        #region Incoming relationships properties
-        #endregion
-
-        #region Object properties
-        #endregion
-    }
-
+			}
+			Console.ReadKey();
+		}
+	}
 }
 
 /*

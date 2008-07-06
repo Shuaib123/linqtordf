@@ -8,12 +8,13 @@ $refs:namespaceref()$
 
 namespace $opts.dotnetNamespace$
 {
+/*
 [assembly: Ontology(
     BaseUri = "$uri$",
     Name = "$handle$",
     Prefix = "$handle$",
     UrlOfOntology = "$uri$")]
-
+*/
 
     public partial class $handle$DataContext : RdfDataContext
     {
