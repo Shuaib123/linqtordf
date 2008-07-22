@@ -1,0 +1,41 @@
+﻿@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix daml: <http://www.daml.org/2001/03/daml+oil#> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsdt: <http://www.w3.org/2001/XMLSchema#>.
+@prefix : <> .
+
+:Artifact a owl:Class .
+:artifactExists
+	rdfs:domain :Artifact;
+	rdfs:range xsdt:boolean.
+:dateCreated
+	rdfs:domain :Artifact;
+	rdfs:range xsdt:dateTime.
+:dateLastModified
+	rdfs:domain :Artifact;
+	rdfs:range xsdt:dateTime.
+:filePath
+	rdfs:domain :Artifact;
+	rdfs:range xsdt:string.
+:isReadOnly
+	rdfs:domain :Artifact;
+	rdfs:range xsdt:boolean.
+:hasACL
+	rdfs:domain :Artifact;
+	rdfs:range xsdt:string.
+:hasDependencyOn
+	rdfs:domain :Artifact;
+	rdfs:range :Artifact.
+:Assembly a owl:Class ;
+	rdfs:subClassOf :Artifact .
+:isSigned
+	rdfs:domain :Assembly;
+	rdfs:range xsdt:boolean.
+:strongKey
+	rdfs:domain :Assembly;
+	rdfs:range xsdt:string.
+:version
+	rdfs:domain :Assembly;
+	rdfs:range xsdt:string.

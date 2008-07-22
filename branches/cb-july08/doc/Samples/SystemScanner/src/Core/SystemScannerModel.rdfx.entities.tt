@@ -1,0 +1,153 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" debug="true"#>
+<#@ assembly name = "System.Core.dll" #>
+<#@ assembly name = "linqtordf.dll" #>
+<#@ import namespace = "System.Collections.Generic" #>
+<#@ import namespace = "LinqToRdf" #>
+<#@ output extension=".cs" #>
+<#@ LinqToRdfDesigner processor="LinqToRdfDesignerDirectiveProcessor" requires="fileName='SystemScannerModel.rdfx'"  #>
+<#
+// prolog - set up some book-keeping variables
+string baseUri = this.ModelRoot.OntologyBaseUrl;
+HashSet<ModelClass> processedClasses = new HashSet<ModelClass>();
+ITypeTranslator2 tt = TypeTranslationProvider.GetTypeTranslator(SupportedTypeDomain.DotNet);
+#>
+using System;
+using LinqToRdf;
+using System.Data.Linq;
+using System.ComponentModel;
+
+namespace SystemScannerModel 
+{
+<#
+  foreach (ModelType type in this.ModelRoot.Types)
+  {
+	ModelClass modelClass = type as ModelClass;
+	if (modelClass != null && !processedClasses.Contains(modelClass))
+	{
+#>
+
+[OwlResource(OntologyName="$fileinputname$", RelativeUriReference="<#=modelClass.OwlClassUri#>")]
+public partial class <#= modelClass.Name #> : <#
+			Write(modelClass.Superclass == null?"OwlInstanceSupertype":modelClass.Superclass.Name);
+ #>, INotifyPropertyChanging, INotifyPropertyChanged
+{
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+<#
+		foreach(ModelAttribute attr in modelClass.Attributes)
+		{
+		
+				PrimitiveDataType dt = PrimitiveDataType.UNKNOWN;
+				bool isPrimitive = tt.IsPrimitiveType(attr.Type);
+				string typename = "";
+				if(isPrimitive)
+				{
+					dt = (PrimitiveDataType)Enum.Parse(typeof(PrimitiveDataType), attr.Type.ToUpper());
+					typename = tt[dt];
+				}
+				else
+				{
+					typename = attr.Type;
+				}
+		
+if(attr.Multiplicity.ToString() == "1")
+{
+#>
+		partial void On<#=attr.Name#>Changing(<#=typename #> value);
+		partial void On<#=attr.Name#>Changed(<#=typename #> value);
+		private <#=typename #> _<#=attr.Name#>;
+		[OwlResource(OntologyName = "SystemScannerModel ", RelativeUriReference="<#=attr.OwlPropertyUri#>")]
+		public <#=typename #> <#=attr.Name#>
+		{
+			get
+			{
+				return this._<#=attr.Name#>;
+			}
+			set
+			{
+				if ((this._<#=attr.Name#> != value))
+				{
+					this.On<#=attr.Name#>Changing(value);
+					this.SendPropertyChanging();
+					this._<#=attr.Name#> = value;
+					this.SendPropertyChanged("<#=attr.Name#>");
+					this.On<#=attr.Name#>Changed(value);
+				}
+			}
+		}
+<#
+}
+else
+{
+#>
+		partial void On<#=attr.Name#>Changing(<#=typename #> value);
+		partial void On<#=attr.Name#>Changed(<#=typename #> value);
+		private EntitySet<<#=typename #>> _<#=attr.Name#>;
+		[OwlResource(OntologyName = "SystemScannerModel ", RelativeUriReference="<#=attr.OwlPropertyUri#>")]
+		public EntitySet<<#=typename #>> <#=attr.Name#>
+		{
+			get
+			{
+				return this._<#=attr.Name#>;
+			}
+			set
+			{
+				if ((this._<#=attr.Name#> != value))
+				{
+					this.On<#=attr.Name#>Changing(value);
+					this.SendPropertyChanging();
+					this._<#=attr.Name#>.Assign(value);
+					this.SendPropertyChanged("<#=attr.Name#>");
+					this.On<#=attr.Name#>Changed();
+				}
+			}
+		}
+<#
+}
+		}
+		
+		foreach(Aggregation association in Aggregation.GetLinksToAggregationTargets(modelClass))
+		{
+		#>
+		partial void On<#=association.TargetRoleName#>Changing(<#=association.Target.Name #> value);
+		partial void On<#=association.TargetRoleName#>Changed(<#=association.Target.Name #> value);
+		<#
+				WriteLine("\tEntitySet<" + association.Target.Name + "> " + association.TargetRoleName + " { get; set; }");
+		}
+		
+		foreach(Composition comp in Composition.GetLinksToCompositionTargets(modelClass))
+		{
+				WriteLine(":"+comp.OwlObjectPropertyUri);
+				WriteLine("\trdfs:domain :" + modelClass.Name +";");
+				WriteLine("\trdfs:range :" + comp.Target.Name +".");
+		}
+
+#>
+
+		public event PropertyChangingEventHandler PropertyChanging;
+		public event PropertyChangedEventHandler PropertyChanged;
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate();
+    partial void OnCreated();
+	#endregion
+}
+<#
+	}
+  }
+#>
+}
