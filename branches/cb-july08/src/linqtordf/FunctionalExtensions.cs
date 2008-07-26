@@ -18,15 +18,23 @@ namespace LinqToRdf
             return t => outer(inner(t));
         }
 
-        public static bool HavingSubjectUri<T>(this EntitySet<T> set, string Uri) where T : class
+        public static bool OccursAsStmtObjectWithUri<T>(this EntitySet<T> set, string Uri) where T : class
         {
             return true;
         }
-        public static bool HavingSubjectUri(this OwlInstanceSupertype set, string Uri)
+        public static bool OccursAsStmtObjectWithUri(this OwlInstanceSupertype set, string Uri)
         {
             return true;
         }
         public static bool HasInstanceUri(this OwlInstanceSupertype set, string Uri)
+        {
+            return true;
+        }
+        public static bool StmtObjectWithSubjectAndPredicate(this OwlInstanceSupertype set, string subjectUri, string predicateUri)
+        {
+            return true;
+        }
+        public static bool StmtSubjectWithObjectAndPredicate(this OwlInstanceSupertype set, string objectUri, string predicateUri)
         {
             return true;
         }
