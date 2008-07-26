@@ -15,25 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_38571302802344F7BBC93FA8F4E7A11E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_63EBA8D0A9404C01A3BA31AC6EEDB576"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_68E810A032A4958FD3330D5B92F8F335"
-        "OwnerKey" = "8:_63EBA8D0A9404C01A3BA31AC6EEDB576"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8D176B0693E0442C9EA6536E574D9772"
+        "MsmKey" = "8:_C4B23E03E54943CF8BC32BE0EF65DE02"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -45,6 +33,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_CE35029E55646D575D69A2A3E2C3DEB5"
+        "OwnerKey" = "8:_63EBA8D0A9404C01A3BA31AC6EEDB576"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F08C988237DD4B50BF0BB3588893A031"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_63EBA8D0A9404C01A3BA31AC6EEDB576"
         "MsmSig" = "8:_UNDEFINED"
@@ -52,7 +52,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_68E810A032A4958FD3330D5B92F8F335"
+        "OwnerKey" = "8:_4F9F12827E0545239E63261FCEF44B3E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_CE35029E55646D575D69A2A3E2C3DEB5"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -117,6 +123,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5"
+                    {
+                    "Name" = "8:.NET Framework 3.5"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -147,9 +166,9 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_38571302802344F7BBC93FA8F4E7A11E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C4B23E03E54943CF8BC32BE0EF65DE02"
             {
-            "SourcePath" = "8:..\\..\\..\\sw-cube.ico"
+            "SourcePath" = "8:..\\..\\doc\\sw-cube.ico"
             "TargetName" = "8:sw-cube.ico"
             "Tag" = "8:"
             "Folder" = "8:_808B380EC0A54AECB4ADF87B4CEAE635"
@@ -167,14 +186,34 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_68E810A032A4958FD3330D5B92F8F335"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C6CCF10319744AE3A855201BD63F315C"
+            {
+            "SourcePath" = "8:..\\..\\doc\\manual\\linqtordf-manual.pdf"
+            "TargetName" = "8:linqtordf-manual.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_808B380EC0A54AECB4ADF87B4CEAE635"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CE35029E55646D575D69A2A3E2C3DEB5"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:semweb.merged, Version=1.0.5.0, Culture=neutral, PublicKeyToken=b4817ea031ba32f1, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_68E810A032A4958FD3330D5B92F8F335"
+                    "_CE35029E55646D575D69A2A3E2C3DEB5"
                     {
                     "Name" = "8:semweb.merged.dll"
                     "Attributes" = "3:512"
@@ -198,30 +237,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8D176B0693E0442C9EA6536E574D9772"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F08C988237DD4B50BF0BB3588893A031"
             {
-            "SourcePath" = "8:..\\LinqToRdfDesigner\\LinqToRdfDesignerSetup\\bin\\Release\\LinqToRdf.msi"
-            "TargetName" = "8:LinqToRdf Designer.msi"
-            "Tag" = "8:"
-            "Folder" = "8:_808B380EC0A54AECB4ADF87B4CEAE635"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C6CCF10319744AE3A855201BD63F315C"
-            {
-            "SourcePath" = "8:..\\..\\doc\\manual\\linqtordf-manual.pdf"
-            "TargetName" = "8:linqtordf-manual.pdf"
+            "SourcePath" = "8:..\\..\\doc\\manual\\rdfmetal-manual.pdf"
+            "TargetName" = "8:rdfmetal-manual.pdf"
             "Tag" = "8:"
             "Folder" = "8:_808B380EC0A54AECB4ADF87B4CEAE635"
             "Condition" = "8:"
@@ -305,14 +324,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LinqToRdf"
-        "ProductCode" = "8:{9EDA6578-ADEC-49E3-8F94-4F93579F0F8F}"
-        "PackageCode" = "8:{E8E8A3A9-923D-42DF-ACA1-4447E936F336}"
+        "ProductCode" = "8:{E4808610-E1EC-4688-95C7-CCBA6165AD13}"
+        "PackageCode" = "8:{FB335924-4F2D-40DE-83B9-22CE2534BFA0}"
         "UpgradeCode" = "8:{B3FA2CAE-0CD3-4D87-A976-08843A5CE16F}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.7.1"
+        "ProductVersion" = "8:0.8"
         "Manufacturer" = "8:Andrew Matthews"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://groups.google.com/group/linqtordf-discuss"
@@ -322,7 +341,7 @@
         "Keywords" = "8:LINQ, Semantic Web"
         "ARPCOMMENTS" = "8:LinqToRdf is a Semantic Web framework for .NET providing an easy way to integrate Semantic Web queries into your software."
         "ARPURLINFOABOUT" = "8:http://aabs.wordpress.com"
-        "ARPPRODUCTICON" = "8:_38571302802344F7BBC93FA8F4E7A11E"
+        "ARPPRODUCTICON" = "8:_C4B23E03E54943CF8BC32BE0EF65DE02"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -429,14 +448,14 @@
             {
             "Name" = "8:The LinqToRdf Tutorial"
             "Arguments" = "8:"
-            "Description" = "8:"
+            "Description" = "8:A guide on how to get started using the LinqToRdf framework."
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
             "Target" = "8:_C6CCF10319744AE3A855201BD63F315C"
             "Folder" = "8:_5A12387853744676A22184230ECF9137"
             "WorkingFolder" = "8:_808B380EC0A54AECB4ADF87B4CEAE635"
-            "Icon" = "8:_38571302802344F7BBC93FA8F4E7A11E"
+            "Icon" = "8:_C4B23E03E54943CF8BC32BE0EF65DE02"
             "Feature" = "8:"
             }
         }
@@ -838,6 +857,34 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4F9F12827E0545239E63261FCEF44B3E"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_808B380EC0A54AECB4ADF87B4CEAE635"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{A325AB35-DD30-4C2C-BA63-194AF8A9DA55}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_63EBA8D0A9404C01A3BA31AC6EEDB576"
             {
             "SourcePath" = "8:..\\linqtordf\\obj\\Debug\\linqtordf.dll"

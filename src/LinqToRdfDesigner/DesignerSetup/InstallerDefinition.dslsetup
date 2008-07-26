@@ -11,7 +11,7 @@ For more specific information, see the Error List window.
 -->
 <installerDefinition xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/InstallerDefinitionModel" 
   productUrl="http://code.google.com/p/linqtordf"
-  defaultDirectoryName="LinqToRdf"
+  defaultDirectoryName="LinqToRdfDesigner"
   productVersion="0.8.0"
   requiresCSharp="true"
   requiresVisualBasic="false"

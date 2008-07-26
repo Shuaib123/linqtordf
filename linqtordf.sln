@@ -26,21 +26,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsl", "src\LinqToRdfDesigne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DslPackage", "src\LinqToRdfDesigner\DslPackage\DslPackage.csproj", "{0CB2434E-958D-473D-8163-AFBD6AE64C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToRdfDesignerSetup", "src\LinqToRdfDesigner\LinqToRdfDesignerSetup\LinqToRdfDesignerSetup.csproj", "{FC7A5C6C-78A1-41E8-8F30-179AAAB3200B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DCB04931-F2F1-45CA-B857-233D7B0AC615} = {DCB04931-F2F1-45CA-B857-233D7B0AC615}
-	EndProjectSection
-EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LinqToRdfInstaller", "src\LinqToRdfInstaller\LinqToRdfInstaller.vdproj", "{0FB23ECB-7B0C-44DD-AC4B-6E5423862D69}"
-	ProjectSection(ProjectDependencies) = postProject
-		{FC7A5C6C-78A1-41E8-8F30-179AAAB3200B} = {FC7A5C6C-78A1-41E8-8F30-179AAAB3200B}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "website", "src\website\website.csproj", "{27A77018-E35F-445F-9C2F-437CEDE691D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdfMetal", "src\RdfMetal\RdfMetal.csproj", "{C7765FC0-D249-47F4-9F99-7C7E8ADEA1FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdfMetalTestHarness", "src\unit-testing\RdfMetalTestHarness\RdfMetalTestHarness.csproj", "{EB146F7D-C547-4D5E-9053-9348FAF8B859}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignerSetup", "src\LinqToRdfDesigner\DesignerSetup\DesignerSetup.csproj", "{A325AB35-DD30-4C2C-BA63-194AF8A9DA55}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -71,10 +63,8 @@ Global
 		{0CB2434E-958D-473D-8163-AFBD6AE64C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CB2434E-958D-473D-8163-AFBD6AE64C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CB2434E-958D-473D-8163-AFBD6AE64C1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC7A5C6C-78A1-41E8-8F30-179AAAB3200B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC7A5C6C-78A1-41E8-8F30-179AAAB3200B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC7A5C6C-78A1-41E8-8F30-179AAAB3200B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0FB23ECB-7B0C-44DD-AC4B-6E5423862D69}.Debug|Any CPU.ActiveCfg = Debug
+		{0FB23ECB-7B0C-44DD-AC4B-6E5423862D69}.Debug|Any CPU.Build.0 = Debug
 		{0FB23ECB-7B0C-44DD-AC4B-6E5423862D69}.Release|Any CPU.ActiveCfg = Release
 		{27A77018-E35F-445F-9C2F-437CEDE691D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27A77018-E35F-445F-9C2F-437CEDE691D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
@@ -84,10 +74,9 @@ Global
 		{C7765FC0-D249-47F4-9F99-7C7E8ADEA1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7765FC0-D249-47F4-9F99-7C7E8ADEA1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7765FC0-D249-47F4-9F99-7C7E8ADEA1FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB146F7D-C547-4D5E-9053-9348FAF8B859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB146F7D-C547-4D5E-9053-9348FAF8B859}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB146F7D-C547-4D5E-9053-9348FAF8B859}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB146F7D-C547-4D5E-9053-9348FAF8B859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A325AB35-DD30-4C2C-BA63-194AF8A9DA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A325AB35-DD30-4C2C-BA63-194AF8A9DA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A325AB35-DD30-4C2C-BA63-194AF8A9DA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

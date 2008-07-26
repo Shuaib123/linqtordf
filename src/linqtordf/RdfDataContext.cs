@@ -20,12 +20,14 @@ using SemWeb;
 namespace LinqToRdf
 {
     /// <summary>
-    /// A structure for storing the location and query idiom for a triple store
+    /// A structure for storing the location and type of a triple store. The triple store type is specified
+    /// by the QueryType enum (the query 'idiom') and may be one of the following: 
+    /// in-memory N3 store, local persistent N3 store, local SPARQL store or remote SPARQL store.
     /// </summary>
     /// <example>
     /// There a several special purpose ctors to allow you to easily construct an instance
-    /// using typical values. the following example instantiates a local in-memory triple 
-    /// store from locations stored in tasksontology and tasks. The query idiom will default to 
+    /// using typical values. The following example instantiates a local in-memory triple 
+    /// store from locations stored in tasksOntology and tasks. The query idiom will default to 
     /// LocalSparqlStore.
     /// <code language="csharp">
     /// MemoryStore store = new MemoryStore();
@@ -52,6 +54,13 @@ namespace LinqToRdf
         public string EndpointUri { get; set; }
         public Store LocalTripleStore { get; set; }
     }
+
+    /// <summary>
+    /// RdfDataContext is the source of all entities from a triple store. It includes a query results cache 
+    /// and when used with a remote triple store, wraps a triple store connection. RdfDataContext also 
+    /// includes a class factory method IRdfQuery<T> ForType<T>( ) that creates ontology query objects for 
+    /// the type T.
+    /// </summary>
     public class RdfDataContext : IRdfContext
     {
         public RdfDataContext(TripleStore store)
@@ -61,6 +70,7 @@ namespace LinqToRdf
 
         private Dictionary<string, IEnumerable> resultsCache = new Dictionary<string, IEnumerable>();
         protected TripleStore store;
+        protected string defaultGraph;
 
         public Dictionary<string, IEnumerable> ResultsCache
         {
@@ -89,6 +99,12 @@ namespace LinqToRdf
             {
                 ms.Add(inst);
             }
+        }
+
+        public string DefaultGraph 
+        {
+            get { return defaultGraph; }
+            set { defaultGraph = value; } 
         }
 
         public void DiscardChanges()
