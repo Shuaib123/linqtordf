@@ -3,5 +3,5 @@
 
 There are two manuals available for LinqToRdf:
 
-  * The [http://code.google.com/p/linqtordf/source/browse/trunk/doc/manual/linqtordf-manual.pdf LinqToRdf Manual]
+  * The [http://linqtordf.googlecode.com/svn/trunk/doc/manual/linqtordf-manual.pdf LinqToRdf Manual]
   * The [http://code.google.com/p/linqtordf/source/browse/trunk/doc/manual/rdfmetal-manual.pdf RdfMetal Manual]
