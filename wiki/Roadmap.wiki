@@ -5,7 +5,7 @@
 This page lists some very high level ideas about how LinqToRdf could develop.
 
 == v0.9 ==
-  * conversion of build systems over to NAnt
+  * conversion of build systems over to NANT
   * extensive use of logging
   * completion of RdfMetal feature set
   * conversion of manuals etc over to wiki format as part of build process
@@ -14,6 +14,8 @@ This page lists some very high level ideas about how LinqToRdf could develop.
   * use of TPL to improve performance of the object deserialiser
 
 == v0.10 ==
+  * provide merging of semweb assemblies using ILMerge in NANT
+  * include latest version (v1.061+) of semweb libraries
   * find a way to deploy RdfMetal templates as embedded resources
   * perf counters
   * convergence on a single test data set
