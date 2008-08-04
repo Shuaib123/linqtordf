@@ -1,0 +1,26 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+This page lists some very high level ideas about how LinqToRdf could develop.
+
+== v0.9 ==
+  * completion of RdfMetal feature set
+    * find a way to deploy templates as embedded resources
+  * conversion of build systems over to NAnt
+  * convergence on a single test data set
+  * SQL Server hosting support for all test data
+
+== v1.0 ==
+  * proven reasoner support
+  * mono compatibility
+  * 100% code coverage
+  * full documented code
+  * NDoc code export as part of the release cycle
+  * SPARUL support
+  * certified compliance with all SPARQL operators
+  * fully documented developer guide - arch + how it works
+
+== v2.0 ==
+  * RDF metamodel through reflection
+  * 
