@@ -5,20 +5,19 @@
 This page lists some very high level ideas about how LinqToRdf could develop.
 
 == v0.9 ==
-  * extensive use of logging
-== v0.10 ==
-== v0.11 ==
-
-  * completion of RdfMetal feature set
-    * find a way to deploy templates as embedded resources
   * conversion of build systems over to NAnt
-  * convergence on a single test data set
-  * SQL Server hosting support for all test data
+  * extensive use of logging
+  * completion of RdfMetal feature set
+  * conversion of manuals etc over to wiki format as part of build process
   * host manual on the Wiki
-  * perf counters
   * use of TPL to improve performance of query creation process
   * use of TPL to improve performance of the object deserialiser
-  * conversion of manuals etc over to wiki format as part of build process
+
+== v0.10 ==
+  * find a way to deploy RdfMetal templates as embedded resources
+  * perf counters
+  * convergence on a single test data set
+  * SQL Server hosting support for all test data
   * compilation of manuals from LaTeX source as part of build process
 
 == v1.0 ==
@@ -33,4 +32,6 @@ This page lists some very high level ideas about how LinqToRdf could develop.
 
 == v2.0 ==
   * RDF metamodel through reflection
-  * export DB info as RDF
+  * expose DB info as RDF
+    * general purpose mapping framework (i.e. what I suggested to RDB2RDF team)
+    
