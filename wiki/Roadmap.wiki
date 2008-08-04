@@ -10,6 +10,7 @@ This page lists some very high level ideas about how LinqToRdf could develop.
   * conversion of build systems over to NAnt
   * convergence on a single test data set
   * SQL Server hosting support for all test data
+  * host manual on the Wiki
 
 == v1.0 ==
   * proven reasoner support
@@ -20,7 +21,8 @@ This page lists some very high level ideas about how LinqToRdf could develop.
   * SPARUL support
   * certified compliance with all SPARQL operators
   * fully documented developer guide - arch + how it works
+  * demonstrable support for Euler reasoner
 
 == v2.0 ==
   * RDF metamodel through reflection
-  * 
+  * export DB info as RDF
