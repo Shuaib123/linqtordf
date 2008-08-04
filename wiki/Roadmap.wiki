@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary A high-level view of where things are heading.
 
 = Introduction =
 
