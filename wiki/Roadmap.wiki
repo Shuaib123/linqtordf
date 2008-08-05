@@ -7,6 +7,7 @@ This page lists some very high level ideas about how LinqToRdf could develop.
 == v0.9 ==
   * conversion of build systems over to NANT
   * extensive use of logging
+  * use of INotifyPropertyChanged on all properties of the generated objects
   * completion of RdfMetal feature set
   * conversion of manuals etc over to wiki format as part of build process
   * host manual on the Wiki
