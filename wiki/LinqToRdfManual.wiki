@@ -1,22 +1,17 @@
 
 
-
 This document guides you through the steps needed to write a simple semantic
 web application in C#. It covers the tools and systems prerequisites, the
 techniques and the expected behavior. All examples are in C#, although
 LinqToRdf should work on any .NET language that supports LINQ.
 
-
-
-\listoffigures
-
 =Introduction=
 ==What are the components of a Semantic Web Application?==
 Within the context of this document, `Semantic Web Application' means
 "application that uses RDF and related technologies". That is -- an
-application that represents information as a graph structure using RDF. It’s
+application that represents information as a graph structure using RDF. Itï¿½s
 beyond the scope of this document to explain the whole pyramid of standards and
-technologies needed to support the semantic web. Instead I’ll give context
+technologies needed to support the semantic web. Instead Iï¿½ll give context
 enough for you to know what steps are required to get your Semantic Web
 Application off the ground.
 
@@ -65,15 +60,15 @@ The details of the OWL standard are beyond the scope of this document. The
 standards document is found at the W3C . There are various tools available for
 creating RDF, and it is important to know that the SemWeb library can
 understand the Notation 3 syntax  , which is a human readable (non-XML) variant
-of RDF. The examples we’ll be using in the rest of this document use Notation 3
+of RDF. The examples weï¿½ll be using in the rest of this document use Notation 3
 (or N3 for short). If your requirements are modest the LinqToRdf graphical
 designer should be sufficient for most tasks. If you need to create more
 complex ontologies, or if you need them to be created in OWL, RDF or RDFS
-format, then you might want to consider tools such as Protégé.
+format, then you might want to consider tools such as Protï¿½gï¿½.
 LinqToRdfDesigner will be covered in a later section. This section shows how
-the LinqToRdf framework can be used without any other support.  Let’s start
+the LinqToRdf framework can be used without any other support.  Letï¿½s start
 with a simple ontology for recording MP3 files. The ontology file should have
-an extension of n3. Let’s call ours music.n3. First you define the XML
+an extension of n3. Letï¿½s call ours music.n3. First you define the XML
 namespaces you will be working with:
 
 <br><code>
@@ -89,7 +84,7 @@ namespaces you will be working with:
 
 This imports some of the standard namespaces for OWL, RDF, XML Schema datatypes
 and others. It also defines a default namespace to be used for all classes and
-properties that are going to be defined in the rest of the document. Now let’s
+properties that are going to be defined in the rest of the document. Now letï¿½s
 define some classes:
 
 <br><code>
@@ -125,7 +120,7 @@ This defines a class Track of type owl:Class. After the class declaration, I
 defined some properties on the Track Class (:title, :artistName etc). Because
 the prolog section previously defined a default namespace, these declarations
 are now in the <http://aabs.purl.org/ontologies/2007/04/music\#> namespace.
-That’s all that’s required to define our simple ontology. Now we can to create
+Thatï¿½s all thatï¿½s required to define our simple ontology. Now we can to create
 some data for MP3 files.
 
 Create another file called mp3s.n3 and add the following:
@@ -167,20 +162,20 @@ ns1:Track_583675819 <http://www.w3.org/1999/02/22-rdf-syntax-ns\#type> ns1:Track
 
 These entries were taken randomly from a list of podcasts that I subscribe to.
 In addition, I wrote a program to create them, but you could do it by hand if
-you want to. I’ll show you in a little while how I created the entries in the
+you want to. Iï¿½ll show you in a little while how I created the entries in the
 =mp3s.n3=  file. In mp3s.n3 I defined a namespace called ns1. It refers to what
 was the default namespace in music.n3.  That means that references to entities
-from the ontology like ‘Track’ will be called ‘ns1:Track’ rather than ‘:Track’
-as they were called in =music.n3= .  It doesn’t matter what you call the prefix
+from the ontology like ï¿½Trackï¿½ will be called ï¿½ns1:Trackï¿½ rather than ï¿½:Trackï¿½
+as they were called in =music.n3= .  It doesnï¿½t matter what you call the prefix
 for the namespace, just so long as the URI that it maps to is the same as was
-used in the ontology definition file. I called it =ns1= , because that’s what my
+used in the ontology definition file. I called it =ns1= , because thatï¿½s what my
 import program wanted to do. The point is that the type =ns1:Track=  in this file
-refers to the =:Track=  class defined in =music.n3= . The triple store that we’ll get
+refers to the =:Track=  class defined in =music.n3= . The triple store that weï¿½ll get
 to shortly will be able to make sense of that in order to know that a ns1:Track
 has a title, artist etc. It is also able to work out the types of the
-properties (which just happens to be ‘string’ for the moment).
+properties (which just happens to be ï¿½stringï¿½ for the moment).
 
-That’s it. That’s all there is to creating an ontology. Later on, we’ll get
+Thatï¿½s it. Thatï¿½s all there is to creating an ontology. Later on, weï¿½ll get
 onto the more complicated task of linking types together using
 ObjectProperties, but for now you have an ontology and some data that uses it.
 
@@ -189,7 +184,7 @@ Since the uptake of semantic web technologies has been pretty patchy in the
 .NET domain so far, your best bet for industrial strength RDF triple stores will (for
 now) be either Jena (=jena.sf.net= ) or OpenLink
 (=openlinksw.com= ), though there are various triple store solutions that
-can be used. For this guide I shall stick to .NET by using Joshua Tauberer’s
+can be used. For this guide I shall stick to .NET by using Joshua Taubererï¿½s
 SPARQL enabled HttpHandler for ASP.NET, which is sufficient to demonstrate how
 LinqToRdf can connect to a SPARQL compatible triple store. LinqToRdf has been
 tested with the Joseki SPARQL interface to Jena, and the OpenLink Virtuoso
@@ -218,7 +213,7 @@ Next, add the following to the body of the body of the config file beneath the r
 
 </code><br>
 
-The name SparqlQuery.aspx doesn’t matter – it doesn’t exist. You can call it
+The name SparqlQuery.aspx doesnï¿½t matter ï¿½ it doesnï¿½t exist. You can call it
 whatever you want. What this does is link the URL for the file SparqlQuery.aspx
 to the SPARQL HttpHandler that we next add to the system.web section of the
 web.config:
@@ -235,11 +230,11 @@ web.config:
 </code><br>
 
 This uses the HttpHandler defined in SemWeb to accept SPARQL queries and run
-them against the triples defined in mp3s.n3. That’s all that’s needed to turn
-your ASP.NET into a semantic web triple store! Yes, it’s that easy. To use the
+them against the triples defined in mp3s.n3. Thatï¿½s all thatï¿½s needed to turn
+your ASP.NET into a semantic web triple store! Yes, itï¿½s that easy. To use the
 HttpHandler you give the URL (/[your vdir here]/SparqlQuery.aspx in the example
 above) defined above in a TripleStore object that is passed to the RDF context
-object. Here’s an example taken from the LinqToRdf test suite.
+object. Hereï¿½s an example taken from the LinqToRdf test suite.
 
 <br><code>
 TripleStore ts = new TripleStore();
@@ -305,7 +300,7 @@ Since the prefix is subject to change without notice, the Name property is used
 instead to embed a class, field or property into a specific named ontology.
 
 Next you should create a new class called Track in a file called Track.cs.
-We’ll see an easier way to do this later on, but for now we’re going to do it
+Weï¿½ll see an easier way to do this later on, but for now weï¿½re going to do it
 the hard way.
 
 <br><code>
@@ -399,9 +394,9 @@ bit to get right is to use the same URI in =OntologyAttribute=  as we used in
 =OntologyAttribute= 
 plus =OntologyName=  allows you to define all attributes as relative URIs which
 makes for a much more readable source file. The =OwlResourceAttribute=  defines
-our .NET class ‘=RdfMusic.Track= ’ to correspond with the OWL class
+our .NET class ï¿½=RdfMusic.Track= ï¿½ to correspond with the OWL class
 =http://aabs.purl.org/ontologies/2007/04/music\#Track= . Likewise the
-‘=FileLocation= ’ property defined on it corresponds to the RDF datatype property
+ï¿½=FileLocation= ï¿½ property defined on it corresponds to the RDF datatype property
 =http://aabs.purl.org/ontologies/2007/04/music\#fileLocation= . The Boolean true on
 these attributes simply tells LinqToRdf that the URIs are relative. It then
 knows enough to be able to work out how to query for the details needed to fill
@@ -414,7 +409,7 @@ DLINQ, instead of URIs for resources defined in an ontology, you would find
 table and column names. 
 
 
-That’s all you need to be able to model your ontology classes in .NET. Now we
+Thatï¿½s all you need to be able to model your ontology classes in .NET. Now we
 can move on to the techniques needed to query your RDF triple store.
 
 ==Querying the ontology using SPARQL==
@@ -450,10 +445,10 @@ local machine called =linqtordf= , and followed the steps outlined early. The
 HTTP. That tells it what types of connections, commands, XML data types and the
 query language to use.
 
-Now we’re ready to perform the LINQ query. We’ll get all of the tracks from
+Now weï¿½re ready to perform the LINQ query. Weï¿½ll get all of the tracks from
 2007 that have a genre name of ``\textsf{Rory Blyth: The Smartest Man in the
 World}''.
-We’ll create a new anonymous type to store the results in, and we’re only
+Weï¿½ll create a new anonymous type to store the results in, and weï¿½re only
 interested in  the =Title=  and the =FileLocation= .
 
 <br><code>
@@ -464,7 +459,7 @@ var q = from t in new RDF(ts).ForType<MyTrack>()
 
 </code><br>
 
-Then we’ll just iterate over the results and wait for a keypress before quitting.
+Then weï¿½ll just iterate over the results and wait for a keypress before quitting.
 
 <br><code>
 foreach(var track in q){
@@ -474,24 +469,24 @@ Console.ReadKey();
 
 </code><br>
 
-That’s all there is to it. Of course there’s a lot more going on behind the
-scenes, but the beauty of LINQ is that you don’t need to see all of that while
-you’re only interested in getting some =Track= s back! In the references section
-I’ll give some links that you can go to if you want to know what’s going on
+Thatï¿½s all there is to it. Of course thereï¿½s a lot more going on behind the
+scenes, but the beauty of LINQ is that you donï¿½t need to see all of that while
+youï¿½re only interested in getting some =Track= s back! In the references section
+Iï¿½ll give some links that you can go to if you want to know whatï¿½s going on
 under the hood.
 
 ==Using the graphical designer to design an ontology==
 The process described in previous sections can be done easily using the
 =LinqToRdfDesigner= . This section describes the tasks required to set up a very
 simple ontology of two classes called =Artifact=  and =Assembly= . The program
-associated with it is available from the google code site via subversion. It’s
+associated with it is available from the google code site via subversion. Itï¿½s
 purpose is to gather various bits of information about the running system and
-store them as objects in an N3 file for later use. We won’t explore too much of
+store them as objects in an N3 file for later use. We wonï¿½t explore too much of
 the application except where it depends on LinqToRdf or LinqToRdfDesigner.
 
 The first task is to create a design surface to draw the domain model on. The
-file extension for LinqToRdfDesigner files is ‘=rdfx= ’. Click on the
-‘\textsf{New Item}’
+file extension for LinqToRdfDesigner files is ï¿½=rdfx= ï¿½. Click on the
+ï¿½\textsf{New Item}ï¿½
 button on the standard toolbar.
 
 \begin{figure}
@@ -544,11 +539,11 @@ Drag a class from the toolbox onto the design surface.
 \end{figure}
 
 By default, it will be called something like =ModelClass1= . Rename it to
-‘=Artifact= ’.
+ï¿½=Artifact= ï¿½.
 This class also needs a name within the ontology. In semantic web applications,
 classes are named using URIs. You will need to choose a URI for the class.
-We’ll get onto that in a moment. For now, press the F4 button an enter
-‘=Artifact= ’ in the ‘\textsf{Owl Class Uri}’ property in the property window.
+Weï¿½ll get onto that in a moment. For now, press the F4 button an enter
+ï¿½=Artifact= ï¿½ in the ï¿½\textsf{Owl Class Uri}ï¿½ property in the property window.
 
 Your properties window should now look like this.
 
@@ -559,8 +554,8 @@ Your properties window should now look like this.
 \end{figure}
 
 Right click on the class shape in the designer and click on the
-‘\textsf{Add New Model
-Attribute}’ menu option.
+ï¿½\textsf{Add New Model
+Attribute}ï¿½ menu option.
 
 \begin{figure}
 \centering
@@ -569,7 +564,7 @@ Attribute}’ menu option.
 \end{figure}
  
 Add an attribute (a field in .NET parlance) to the class and call it
-‘=ArtifactExists= ’. Again, use the properties window to set up some properties
+ï¿½=ArtifactExists= ï¿½. Again, use the properties window to set up some properties
 for the attribute. Initially it will look like this.
 
 \begin{figure}
@@ -587,10 +582,10 @@ Change the properties to be like this.
 that matches the object or data property in the ontology.}
 \end{figure}
 
-What we’re saying here is that the .NET property ‘=ArtifactExists= ’ of .NET type
-=bool=  corresponds to the OWL URI ‘=artifactExists= ’ which LinqToRdf will convert
-into the XML Schema Datatype ‘=xsdt:boolean= ’. You can ignore the description
-property, for the moment, since it’s not currently used in the designer text
+What weï¿½re saying here is that the .NET property ï¿½=ArtifactExists= ï¿½ of .NET type
+=bool=  corresponds to the OWL URI ï¿½=artifactExists= ï¿½ which LinqToRdf will convert
+into the XML Schema Datatype ï¿½=xsdt:boolean= ï¿½. You can ignore the description
+property, for the moment, since itï¿½s not currently used in the designer text
 templates. Later on we will see how these extra properties can be used within
 the text templates to generate documentation for both C# and N3.
 
@@ -614,12 +609,12 @@ Next drag another class from the toolbox onto the design surface and call it
 \caption{Two classes related by an inheritance relationship.}
 \end{figure}
  
-Use the ‘\textsf{inheritance}’ tool from the toolbox to connect from it to the class
-‘Artifact’. This will connect the classes using direct inheritance in C# and
+Use the ï¿½\textsf{inheritance}ï¿½ tool from the toolbox to connect from it to the class
+ï¿½Artifactï¿½. This will connect the classes using direct inheritance in C# and
 =owl:subclass=  in N3. Your domain model is now taking shape. 
 
-You’re now at a stage where you have something worth converting into code!
-Click on the ‘\textsf{transform all templates}’ button on the Solution Explorer toolbar.
+Youï¿½re now at a stage where you have something worth converting into code!
+Click on the ï¿½\textsf{transform all templates}ï¿½ button on the Solution Explorer toolbar.
 
 \begin{figure}
 \centering
@@ -628,7 +623,7 @@ Click on the ‘\textsf{transform all templates}’ button on the Solution Explorer 
 \end{figure}
  
 This processes the text templates that were created earlier, supplying them
-with the object model that you’ve built up over the last few steps. The output
+with the object model that youï¿½ve built up over the last few steps. The output
 should look like this.
 
 \begin{figure}
@@ -968,5 +963,3 @@ public static void Main()
     }
 }
 </code><br>
-
-
